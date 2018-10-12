@@ -1,0 +1,157 @@
+<?php
+
+$help_sections['title']['templates'] ="قالب ها";
+$help_sections['body']['templates'] = <<<HTML
+قالب ها نحوه ی نمایش سیستم و مطالب سایت شما در چیدمانی به دلخواه شما می باشند. برای اعمال تغییرات در قالب های سیستم دیتالایف انجین می بایست شما زبان های HTML و css را از قبل آموزش ببینید. جهت آموزش این دو زبان برنامه نویسی می توانید به سایت های مختلفی از جمله w3schools.com مراجعه نمایید.<br><br>آموزش تگ های کاربردی دیتالایف انجین و نحوه ی تغییرات آن به زودی در سایت همیار دیتالایف انجین منتشر خواهد شد!<br>
+منتظر آموزش های جدید از تیم همیار دیتالایف انجین فارسی باشید . . .<br><br>
+HTML;
+
+$help_sections['title']['xfields'] ="فیلدهای اضافی";
+$help_sections['body']['xfields'] = <<<HTML
+با استفاده از لینک <a href=?mod=xfields&xfieldsaction=configure>فیلدهای اضافی</a> می توانید به این قسمت از سیستم دسترسی پیدا کنید! این قسمت یکی از بزرگترین نمایش دهنده های انعطاف پذیر بودن سیستم دیتالایف انجین می باشد. با استفاده از فیلدهای اضافی در قالب خودتان می توانید لینک های خارجی را وارد سیستم کنید ، قالب های فروشگاهی بسازید و . . .<br>
+فرض کنید شما یک سایت دانلود نرم افزار درست کرده اید و به هنگام ارسال مطلب باید حجم فایل را وارد نمایید. اینجاست که فیلد های اضافی به کمک شما می آیند. پس از وارد شدن به لینک بالا ، بر روی اضافه کردن کلیک نمایید. در صفحه باز شده دو قسمت اول را تکمیل کنید. با توجه به مثال بالا عملیات ایجاد فیلد اضافی را پی می گیریم.<br>
+قسمت اول : نام فیلد : size ، قسمت دوم :توضیح کوتاه : حجم فایل<br>
+حالا فقط کد زیر را باید در قالب های shortstory.tpl یا fullstory.tpl قرار دهید:<br>
+پس از تگ {short-story}قرار دهید :<br>
+<div class="code">
+[xfgiven_size] حجم :[xfvalue_size] [/xfgiven_size]
+</div>
+<br>
+کار تمام شد!<br><br>
+HTML;
+
+$help_sections['title']['xprofile'] ="فیلدهای اضافی کاربران";
+$help_sections['body']['xprofile'] = <<<HTML
+این قسمت هم همانند فیلدهای اضافی برای انعطاف پذیری سیستم دیتالایف انجین مورد استفاده قرار می گیرد! <br>
+با وارد شدن به این قسمت می توانید یکسری موارد اعم از جنسیت کاربران ، سن ، شماره تماس و کلی اطلاعات اضافی لازم را از کاربرانتان به پروفایل کاربری آنها اضافه کنید.<br>
+پس از وارد شدن به این قسمت ، فیلدهای مشخص را همانند بالا پر می کنیم !
+سپس جهت مشاهده ی تغییر فرآیند از این فیلدها به صورت زیر در فایل userinfo.tpl وارد میکنیم!
+<div class="code">
+[xfgiven_site] <a href=[xfvalue_site]>[xfvalue_site]</a> [/xfgiven_site] آدرس سایت کاربر
+</div>
+HTML;
+
+$help_sections['title']['banners'] ="تبلیغات";
+$help_sections['body']['banners'] = <<<HTML
+با استفاده از این ماژول می توانید تبلیغات خود را سریع و کامل مدیریت کنید. برای ایجاد تبلیغات جدید ، پس از وارد شدن به این قسمت و کلیک بر روی ایجاد تبلیغ جدید ، اطلاعات و زمان شروع و پایان تبلیغ را وارد نمایید.
+در این قسمت باید توجه کنید که متن تبلیغ به صورت کدهای HTML می بایست قرار گیرد.<br><br>
+پس از پایان ویرایش یا اضافه کردن تبلیغ ، کدی به صورت 
+<div class="code">
+[banner_test]{banner_test}[/banner_test]
+</div>
+در اختیار شما قرار می گیرد که می بایست این کد را داخل فایل <b>main.tpl</b> یا <b>fullstory.tpl</b> قرار دهید. در صورتی که نمایش تبلیغ بین مطالب را انتخاب کنید ، لازم نیست این کد را داخل قالب قرار دهید ، این عمل به صورت اتوماتیک انجام می پذیرد.
+HTML;
+
+
+$help_sections['title']['date'] ="تاریخ شمسی و نحوه ی فراخوانی آن";
+$help_sections['body']['date'] = <<<HTML
+کاراکترهای مورد استفاده در فرمت زمان و تاریخ:
+	<ul>
+		<li><b>a</b> - نتیجه: "am" یا "pm"</li>
+		<li><b>A</b> - نتیجه: "AM" یا "PM"</li>
+		<li><b>B</b> - زمان اینترنت</li>
+		<li><b>d</b> - روز (شماره) بطور مثال "01" تا "31" </li>
+		<li><b>D</b> - روز هفته (متنی و 3 حرف اول) بطور مثال "Fri"</li>
+		<li><b>F</b> - ماه (متنی و کامل) به طور مثال "فروردین" </li>
+		<li><b>g</b> - ساعت, 0 تا 12; از "1" تا "12" </li>
+		<li><b>G</b> - ساعت, 0 تا 24; "0" تا "23" </li>
+		<li><b>h</b> - ساعت, 0 تا 12; "01" تا "12"</li>
+		<li><b>H</b> - ساعت, 0 تا 24; "00" تا "23" </li>
+		<li><b>i</b> - دقیقه; از "00" تا "59"</li>
+		<li><b>j</b> - روز (شماره) بطور مثال از "1" تا "31" </li>
+		<li><b>l</b> روز (متنی و کامل) به طور مثال "جمعه" </li>
+		<li><b>L</b> - نشان دادن سال کبیسه با استفاده از 0 یا 1</li>
+		<li><b>m</b> - ماه; از "01" تا "12"</li>
+		<li><b>M</b> - ماه (متنی و 4 حرف اول) بطور مثال "Jan" </li>
+		<li><b>n</b> - ماه (شماره) از "1" تا "12" </li>
+		<li><b>O</b> - نمایش اختلاف زمانی سرور با گرینویچ، بطور مثال "+0200" </li>
+		<li><b>r</b> - فرمت کامل تاریخ، به طور مثال "چهارشنبه، 14 شهریور 1396 16:01:07 +0200"</li>
+		<li><b>s</b> - ثانیه از "00" تا "59"</li>
+		<li><b>S</b> - پسوند ترتیبی روز؛ بطور مثال "st", "nd", "rd" و یا "th"</li>
+		<li><b>t</b> - تعداد روز در یک ماه؛ به عنوان مثال از "28" تا "31" </li>
+		<li><b>T</b> - تنظیم منطقه زمانی (به وقت محلی بر روی سرور) به عنوان مثال "EST" یا "MDT" </li>
+		<li><b>U</b> - فرمت کامل تاریخ، به طور مثال (خرداد 29 1392 00:00:00 GMT) </li>
+		<li><b>w</b> - روز هفته (شماره) از 0 (یکشنبه) تا 6 (شنبه)</li>
+		<li><b>W</b> - تعداد هفته از سال (با شروع هفته از روز دوشنبه)</li>
+		<li><b>Y</b> - سال، (4 رقمی) به طور مثال "1392"</li>
+		<li><b>y</b> - سال، (2 رقمی) به طور مثال "92"</li>
+		<li><b>z</b> - روز سال، از 0 تا 365</li>
+		<li><b>Z</b> - منطقه زمانی افست در ثانیه (بطور مثال از "-43200" تا "43200"). </li>
+	</ul>
+HTML;
+
+$help_sections['title']['social'] ="Configure authorization";
+$help_sections['body']['social'] = <<<HTML
+<div class="bg-primary-700" style="padding:10px;">Configure authorization using Vkontakte</div>
+The first thing you need is to create a new application for <a href="http://vk.com/editapp?act=create" target="_blank">Vkontakte</a> network.<br><br>
+In the opened form you should enter the name of the application. Select "Веб-сайт", and enter your website’s address: http://yoursite.com/index.php?do=auth-social&provider=vk. Replace yoursite.com with your basic domain.
+<br><br><div style="text-align:center;"><img src="engine/skins/images/vk1.jpg" /></div>
+<br>After you click "Подключить сайт", you must enter a verification code from the SMS that will come in the short term. If the code will be verified, the following form with the application settings should be shown:
+<br><br><div style="text-align:center;"><img src="engine/skins/images/vk2.jpg" /></div>
+<br>You will need the data such as "ID приложения" and "Защищённый ключ" from this form, which you must enter in the Administration Panel of the script, in the Social Network Settings. These fields will be unique for your site, they cannot be copied from the screenshot above.
+<br><br>After that place the following code into <b>login.tpl</b>:
+<div class="code">[vk]&lt;a href="{vk_url}" target="_blank"&gt;Log in using Vkontakte&lt;/a&gt;[/vk]</div>
+Where tags [vk] … [/vk] display the text enclosed between them if the authorization using Vkontakte network is enabled. Tag {vk_url} displays the URL link to the authorization in the social network.
+<br><br>
+<div class="bg-primary-700" style="padding:10px;">Configure authorization using Odnoklassniki</div>
+You need to fill <a href="http://www.odnoklassniki.ru/devaccess" target="_blank">the form and get the developer account</a> to register the website where the authorization using Odnoklassniki network will be performed. After that, open <a href="http://www.odnoklassniki.ru/games" target="_blank">"Игры"</a> section and find a link on the right side of the menu<a href="http://www.odnoklassniki.ru/dk?st.cmd=appsInfoMyDevList&st._aid=Apps_Info_MyDev" target="_blank">"Мои загруженные"</a>. Click "добавить приложение" and fill in the form:<br><br>
+<br><br><div style="text-align:center;"><img src="engine/skins/images/odnoklassniki1.jpg" /></div>
+<br>Specify “Веб” application type there, and check "External". In "Ссылка на приложение" and "Список разрешённых redirect_uri" specify: http://yoursite.com/index.php?do=auth-social&provider=od , and check "Разрешить клиентскую OAuth авторизацию". After adding a new application, you will receive an email with the needed settings.
+<br><br><div style="text-align:center;"><img src="engine/skins/images/odnoklassniki2.jpg" /></div>
+<br>You will need the following options: "Application ID", "Публичный ключ приложения", "Секретный ключ приложения", that you should enter to Administration Panel of the script in Social Network Settings. These fields will be unique for your site, they cannot be copied from the screenshot above.
+<br><br>After that place the following code into <b>login.tpl</b>:
+<div class="code">[odnoklassniki]&lt;a href="{odnoklassniki_url}" target="_blank"&gt;Log in using Odnoklassniki&lt;/a&gt;[/odnoklassniki]</div>
+Where tags [odnoklassniki] … [/odnoklassniki] display the text enclosed between them if the authorization using Odnoklassniki network is enabled. Tag {odnoklassniki_url} displays the URL link to the authorization in the social network.
+<br><br>
+<div class="bg-primary-700" style="padding:10px;">Configure authorization using Facebook</div>
+The first thing you need is to create a new application for <a href="https://developers.facebook.com/apps" target="_blank">Facebook</a> network.<br><br>
+Click "+ Создать новое приложение" in the upper right corner. Then enter the name of the application:
+<br><br><div style="text-align:center;"><img src="engine/skins/images/fc1.jpg" /></div>
+<br> Next, on the settings page of your application click "Add Platform". Then choose "Website" and enter your website’s address: http://yoursite.com/
+<br><br><div style="text-align:center;"><img src="engine/skins/images/fc2.jpg" /></div>
+<br> Then save all your settings. For further work you need the options that you can find in the following fields:
+<br><br><div style="text-align:center;"><img src="engine/skins/images/fc3.jpg" /></div>
+<br>that you should enter to Administration Panel of the script in Social Network Settings. These fields will be unique for your site, they cannot be copied from the screenshot above.
+<br><br>After that place the following code into <b>login.tpl</b>:
+<div class="code">[facebook]&lt;a href="{facebook_url}" target="_blank"&gt;Log in using Facebook&lt;/a&gt;[/facebook]</div>
+Where tags [facebook] … [/facebook] display the text enclosed between them if the authorization using Facebook network is enabled. Tag {facebook_url} displays the URL link to the authorization in the social network.
+<br><br>
+<div class="bg-primary-700" style="padding:10px;">Configure authorization using Google</div>
+The first thing you need is to create a new application <a href="https://code.google.com/apis/console/" target="_blank">Google</a>. After navigating to the page click on "Create project".
+<div style="text-align:center;"><img src="engine/skins/images/google1.jpg" /></div>
+After completing the form, go to the library and click on the Google+ API (note that the top should be the name of your created project)
+<br><br><div style="text-align:center;"><img src="engine/skins/images/google2.jpg" /></div>
+<br>Include this API, and after activation You will be prompted to create credentials. Fill in the form. And save:
+<br><br><div style="text-align:center;"><img src="engine/skins/images/google3.jpg" /></div>
+<br>Fill the form:
+<br><br><div style="text-align:center;"><img src="engine/skins/images/google4.jpg" /></div>
+<br><br><div style="text-align:center;"><img src="engine/skins/images/google5.jpg" /></div>
+<br><br><div style="text-align:center;"><img src="engine/skins/images/google6.jpg" /></div>
+<br>You will need the following options: "Client ID" and "Client Secret" that you should enter to Administration Panel of the script in Social Network Settings. These fields will be unique for your site, they cannot be copied from the screenshot above.
+<br><br>After that place the following code into <b>login.tpl</b>:
+<div class="code">[google]&lt;a href="{google_url}" target="_blank"&gt;Log in using Google&lt;/a&gt;[/google]</div>
+Where tags [google] … [/google] display the text enclosed between them if the authorization using Google is enabled. Tag {google_url}  displays the URL link to the authorization in the network.
+<br><br>
+<div class="bg-primary-700" style="padding:10px;">Configure authorization using Mail.Ru</div>
+First you need to create a new application on <a href="http://api.mail.ru/sites/my/add" target="_blank">Mail.Ru</a>.<br><br>
+On the next page you need to agree with the rules. Next, fill in the form below:
+<br><br><div style="text-align:center;"><img src="engine/skins/images/mailru1.jpg" /></div>
+<br>Then click "Продолжить" and move to the next step. Now you need to download receiver.html, place it to your project’s directory and let Mail.ru check the availability of this file. When you successfully add your website to Mail.ru, you should see the following message with the special parameters:
+<br><br><div style="text-align:center;"><img src="engine/skins/images/mailru2.jpg" /></div>
+<br>You will need the following options: "ID" and "Секретный ключ", that you should enter to Administration Panel of the script in Social Network Settings. These fields will be unique for your site, they cannot be copied from the screenshot above.
+<br><br>After that place the following code into <b>login.tpl</b>:
+<div class="code">[mailru]&lt;a href="{mailru_url}" target="_blank"&gt;Log in using Mail.Ru&lt;/a&gt;[/mailru]</div>
+Where tags [mailru] … [/mailru] display the text enclosed between them if the authorization using Mail.Ru is enabled. Tag {mailru_url} displays the URL link to the authorization in the network.
+<br><br>
+<div class="bg-primary-700" style="padding:10px;">Configure authorization using Yandex</div>
+First you need to create a new application on <a href="https://oauth.yandex.ru/client/new" target="_blank">Yandex</a>.<br><br>
+<div style="text-align:center;"><img src="engine/skins/images/yandex1.jpg" /></div>
+<br>The title will be "Yandex Auth". Choose "Яндекс.Логин" and select all items: e-mail address, date of birth, username of the full name. We will get the access to them if user entered all the data in the user profile.  Block with the special parameters will be shown on the next page:
+<div style="text-align:center;"><img src="engine/skins/images/yandex2.jpg" /></div>
+<br>You will need the following options: "ID приложения" and "Пароль приложения", that you should enter to Administration Panel of the script in Social Network Settings. These fields will be unique for your site, they cannot be copied from the screenshot above.
+<br><br>After that, place the following code into <b>login.tpl</b>:
+<div class="code">[yandex]&lt;a href="{yandex_url}" target="_blank"&gt;Log in using Yandex&lt;/a&gt;[/yandex]</div>
+Where tags [yandex] … [/yandex] display the text enclosed between them if the authorization using Yandex is enabled. Tag {yandex_url} displays the URL link to the authorization in the network.
+HTML;
+
+?>
