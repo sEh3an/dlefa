@@ -65,8 +65,7 @@
 			);
           	$row = $db->super_query( "SELECT id FROM " . PREFIX . "_plugins WHERE name='Persian DataLife Engine'" );
 			$db->query( "UPDATE " . PREFIX . "_plugins SET active='1' WHERE id='{$row['id']}'" );
-          	$db->query( "UPDATE " . PREFIX . "_plugins_files SET active='1' WHERE plugin_id='{$row['id']}'" );
-          	clear_all_caches();
+          	$db->query( "UPDATE " . PREFIX . "_plugins_files SET active='1' WHERE plugin_id='{$row['id']}'" );          	
         }else{	
 			$default_array = array (
 				'engine/skins/fonts/fontawesome/styles.min.css',
@@ -74,8 +73,7 @@
 			);
           	$row = $db->super_query( "SELECT id FROM " . PREFIX . "_plugins WHERE name='Persian DataLife Engine'" );
 			$db->query( "UPDATE " . PREFIX . "_plugins SET active='0' WHERE id='{$row['id']}'" );
-          	$db->query( "UPDATE " . PREFIX . "_plugins_files SET active='0' WHERE plugin_id='{$row['id']}'" );
-          	clear_all_caches();
+          	$db->query( "UPDATE " . PREFIX . "_plugins_files SET active='0' WHERE plugin_id='{$row['id']}'" );          	
         }		
 	}else{	
 		if ($config['langs'] == 'Farsi'){
@@ -85,8 +83,7 @@
 			);
           	$row = $db->super_query( "SELECT id FROM " . PREFIX . "_plugins WHERE name='Persian DataLife Engine'" );
 			$db->query( "UPDATE " . PREFIX . "_plugins SET active='1' WHERE id='{$row['id']}'" );
-          	$db->query( "UPDATE " . PREFIX . "_plugins_files SET active='1' WHERE plugin_id='{$row['id']}'" );
-          	clear_all_caches();
+          	$db->query( "UPDATE " . PREFIX . "_plugins_files SET active='1' WHERE plugin_id='{$row['id']}'" );          	
 		}else{	
 			$default_array = array (
 				'engine/skins/fonts/fontawesome/styles.min.css',
@@ -94,8 +91,7 @@
 			);
           	$row = $db->super_query( "SELECT id FROM " . PREFIX . "_plugins WHERE name='Persian DataLife Engine'" );
 			$db->query( "UPDATE " . PREFIX . "_plugins SET active='0' WHERE id='{$row['id']}'" );
-          	$db->query( "UPDATE " . PREFIX . "_plugins_files SET active='0' WHERE plugin_id='{$row['id']}'" );
-          	clear_all_caches();
+          	$db->query( "UPDATE " . PREFIX . "_plugins_files SET active='0' WHERE plugin_id='{$row['id']}'" );          	
         }		
 	}]]></replacecode>
 		</operation>

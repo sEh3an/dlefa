@@ -90,6 +90,10 @@ if ($year != '' and $month != '' and $day != '' and $subaction == '') $nam_e = $
 			<replacecode><![CDATA[if ($year != '' and $month == '' and $day == '') $nam_e = $lang['title_date'] . ' ' . $lang['title_year'] . '  ' . $year;
 if ($year != '' and $month != '' and $day == '') $nam_e = $lang['title_date'] . ' ماه ' . $month  . ' ' . $lang['title_year1'] . ' ' . $year;]]></replacecode>
 		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[<meta name="generator" content="DataLife Engine (http://dle-news.ru)">]]></searchcode>
+			<replacecode><![CDATA[<meta name="generator" content="Persian DataLife Engine (http://dlefa.ir)">]]></replacecode>
+		</operation>
 	</file>
 	<file name="engine/init.php">
 		<operation action="replace">
@@ -228,6 +232,13 @@ $('[data-rel=calendardate]').persianDatepicker({
 			<searchcode><![CDATA[$file_date = date("d.m.Y H:i:s", filectime($dir . $this->dir_split . $file));]]></searchcode>
 			<replacecode><![CDATA[$file_date = jdate("Y/m/d H:i:s", filectime($dir . $this->dir_split . $file));]]></replacecode>
 		</operation>
+		<operation action="after">
+			<searchcode><![CDATA[var $good_files       = array(]]></searchcode>
+			<replacecode><![CDATA["./engine/classes/jdate.class.php",
+"./engine/ajax/calendar_fa.php",
+"./engine/ajax/updates_fa.php",
+"./engine/modules/calendar_fa.php",]]></replacecode>
+		</operation>
 	</file>
 	<file name="engine/classes/comments.class.php">
 		<operation action="replace">
@@ -297,6 +308,14 @@ else $alt_name = fatotranslit( preg_replace("/[^\x{0600}-\x{06FF}a-zA-Z0-9_.;»�
 			<searchcode><![CDATA[.date( $langformatdatefull,]]></searchcode>
 			<replacecode><![CDATA[.jdate( $langformatdatefull,]]></replacecode>
 		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[pull-right]]></searchcode>
+			<replacecode><![CDATA[pull-left]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[class="form-control width-350 position-left" maxlength="40" type="text" name="banner_tag"]]></searchcode>
+			<replacecode><![CDATA[class="form-control width-350 position-left ltr" maxlength="40" type="text" name="banner_tag"]]></replacecode>
+		</operation>
 	</file>
 	<file name="engine/inc/blockip.php">
 		<operation action="replace">
@@ -328,6 +347,14 @@ else $alt_name = fatotranslit( preg_replace("/[^\x{0600}-\x{06FF}a-zA-Z0-9_.;»�
 		<operation action="replace">
 			<searchcode><![CDATA[pull-right]]></searchcode>
 			<replacecode><![CDATA[pull-left]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[name="alt_cat_name" type="text" class="form-control"]]></searchcode>
+			<replacecode><![CDATA[name="alt_cat_name" type="text" class="form-control ltr"]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[name="cat_icon" type="text" class="form-control"]]></searchcode>
+			<replacecode><![CDATA[name="cat_icon" type="text" class="form-control ltr"]]></replacecode>
 		</operation>
 	</file>
 	<file name="engine/inc/cmoderation.php">
@@ -372,6 +399,15 @@ else $alt_name = fatotranslit( preg_replace("/[^\x{0600}-\x{06FF}a-zA-Z0-9_.;»�
 		} else {
 
 		   $name = jdate("Y-m-d_H-i") . '_' . $db . '_' . md5($rand);]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[body{
+	overflow: auto;
+}]]></searchcode>
+			<replacecode><![CDATA[body{
+	overflow: auto;
+    direction:rtl
+}]]></replacecode>
 		</operation>
 	</file>
 	<file name="engine/inc/editnews.php">
@@ -525,6 +561,22 @@ else $alt_name = fatotranslit( preg_replace("/[^\x{0600}-\x{06FF}a-zA-Z0-9_.;»�
 			<searchcode><![CDATA[$time_limit = trim( $_POST['time_limit'] ) ? strtotime( $_POST['time_limit'] ) : "";]]></searchcode>
 			<replacecode><![CDATA[$time_limit = trim( $_POST['time_limit'] ) ? jstrtotime( $_POST['time_limit'] ) : "";]]></replacecode>
 		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[class="form-control" type="text" name="search_mail" id="search_mail"]]></searchcode>
+			<replacecode><![CDATA[class="form-control ltr" type="text" name="search_mail" id="search_mail"]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[name="regemail" type="text" class="form-control"]]></searchcode>
+			<replacecode><![CDATA[name="regemail" type="text" class="form-control ltr"]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[class="form-control width-200 position-left" maxlength="50" type="text" name="editmail"]]></searchcode>
+			<replacecode><![CDATA[class="form-control width-200 position-left ltr" maxlength="50" type="text" name="editmail"]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[class="form-control width-300" maxlength="50" type="text" name="gravatar"]]></searchcode>
+			<replacecode><![CDATA[class="form-control width-300 ltr" maxlength="50" type="text" name="gravatar"]]></replacecode>
+		</operation>
 	</file>
 	<file name="engine/inc/editvote.php">
 		<operation action="replace">
@@ -584,6 +636,14 @@ else $alt_name = fatotranslit( preg_replace("/[^\x{0600}-\x{06FF}a-zA-Z0-9_.;»�
 		<operation action="replace">
 			<searchcode><![CDATA[$name = trim( totranslit( $_POST['name'], true, false ) );]]></searchcode>
 			<replacecode><![CDATA[$name = trim( fatotranslit( $_POST['name'], true, false ) );]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[name="name" class="form-control width-550" maxlength="100">]]></searchcode>
+			<replacecode><![CDATA[name="name" class="form-control width-550 ltr" maxlength="100">]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[<input type="text" name="static_tpl" class="form-control position-left" style="width:220px;">.tpl]]></searchcode>
+			<replacecode><![CDATA[tpl.<input type="text" name="static_tpl" class="form-control position-left" style="width:220px;">]]></replacecode>
 		</operation>
 	</file>
 	<file name="engine/inc/templates.php">
@@ -677,6 +737,18 @@ else $alt_name = fatotranslit( preg_replace("/[^\x{0600}-\x{06FF}a-zA-Z0-9_.;»�
 			<searchcode><![CDATA[<div class="dropdown-menu dropdown-content"]]></searchcode>
 			<replacecode><![CDATA[<div class="dropdown-menu dropdown-menu-pm dropdown-content"]]></replacecode>
 		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[<a class="navbar-brand" href="?mod=main">DataLife Engine</a>]]></searchcode>
+			<replacecode><![CDATA[<a class="navbar-brand" href="?mod=main">همیار دیتالایف انجین</a>]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[					<div class="footer text-muted text-size-small">
+						DataLife Engine&reg;  Copyright 2004-{$year} &copy; <a href="https://dle-news.ru/" target="_blank">SoftNews Media Group</a> All rights reserved.
+					</div>]]></searchcode>
+			<replacecode><![CDATA[					<div class="footer text-muted text-size-small ltr">
+						DataLife Engine&reg;  Copyright {$year} &copy; <a href="https://dlefa.ir/" target="_blank">dlefa</a> All rights reserved.
+					</div>]]></replacecode>
+		</operation>
 	</file>
 	<file name="engine/inc/plugins.php">
 		<operation action="replace">
@@ -723,6 +795,32 @@ else $alt_name = fatotranslit( preg_replace("/[^\x{0600}-\x{06FF}a-zA-Z0-9_.;»�
 			<replacecode><![CDATA[    'admin_fa' => array(
      	$min_documentRoot . '/engine/skins/javascripts/application_fa.js', 
     ),]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/inc/main.php">
+		<operation action="replace">
+			<searchcode><![CDATA[$.get("engine/ajax/controller.php?mod=updates&versionid={$currect_version}&user_hash={$dle_login_hash}&build={$currect_build}", function( data ){]]></searchcode>
+			<replacecode><![CDATA[$.get("engine/ajax/controller.php?mod=updates_fa&versionid={$currect_version}&user_hash={$dle_login_hash}&build={$currect_build}", function( data ){]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/inc/xfields.php">
+		<operation action="replace">
+			<searchcode><![CDATA[float:right]]></searchcode>
+			<replacecode><![CDATA[float:left]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/inc/options.php">
+		<operation action="replace">
+			<searchcode><![CDATA[class=\"form-control\" name=\"save_con[http_home_url]\"]]></searchcode>
+			<replacecode><![CDATA[class=\"form-control ltr\" name=\"save_con[http_home_url]\"]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[class=\"form-control\" name=\"save_con[recaptcha_public_key]\"]]></searchcode>
+			<replacecode><![CDATA[class=\"form-control ltr\" name=\"save_con[recaptcha_public_key]\"]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[.date]]></searchcode>
+			<replacecode><![CDATA[.jdate]]></replacecode>
 		</operation>
 	</file>
 </dleplugin>
