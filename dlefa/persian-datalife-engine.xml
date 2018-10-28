@@ -90,6 +90,10 @@ if ($year != '' and $month != '' and $day != '' and $subaction == '') $nam_e = $
 			<replacecode><![CDATA[if ($year != '' and $month == '' and $day == '') $nam_e = $lang['title_date'] . ' ' . $lang['title_year'] . '  ' . $year;
 if ($year != '' and $month != '' and $day == '') $nam_e = $lang['title_date'] . ' ماه ' . $month  . ' ' . $lang['title_year1'] . ' ' . $year;]]></replacecode>
 		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[<meta name="generator" content="DataLife Engine (http://dle-news.ru)">]]></searchcode>
+			<replacecode><![CDATA[<meta name="generator" content="Persian DataLife Engine (http://dlefa.ir)">]]></replacecode>
+		</operation>
 	</file>
 	<file name="engine/init.php">
 		<operation action="replace">
@@ -733,6 +737,22 @@ else $alt_name = fatotranslit( preg_replace("/[^\x{0600}-\x{06FF}a-zA-Z0-9_.;»�
 			<searchcode><![CDATA[<div class="dropdown-menu dropdown-content"]]></searchcode>
 			<replacecode><![CDATA[<div class="dropdown-menu dropdown-menu-pm dropdown-content"]]></replacecode>
 		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[<a class="navbar-brand" href="?mod=main">DataLife Engine</a>]]></searchcode>
+			<replacecode><![CDATA[<a class="navbar-brand" href="?mod=main">همیار دیتالایف انجین</a>]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[					<div class="footer text-muted text-size-small">
+						DataLife Engine&reg;  Copyright 2004-{$year} &copy; <a href="https://dle-news.ru/" target="_blank">SoftNews Media Group</a> All rights reserved.
+					</div>]]></searchcode>
+			<replacecode><![CDATA[					<div class="footer text-muted text-size-small ltr">
+						DataLife Engine&reg;  Copyright {$year} &copy; <a href="https://dlefa.ir/" target="_blank">dlefa</a> All rights reserved.
+					</div>]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[<div class="text-muted text-size-small text-center">DataLife Engine&reg;  Copyright 2004-{$year}<br>&copy; <a href="https://dle-news.ru/" target="_blank">SoftNews Media Group</a> All rights reserved.</div>]]></searchcode>
+			<replacecode><![CDATA[<div class="text-muted text-size-small text-center ltr">DataLife Engine&reg;  Copyright {$year}<br>&copy; <a href="https://dlefa.ir/" target="_blank">dlefa</a> All rights reserved.</div>]]></replacecode>
+		</operation>
 	</file>
 	<file name="engine/inc/plugins.php">
 		<operation action="replace">
@@ -805,6 +825,18 @@ else $alt_name = fatotranslit( preg_replace("/[^\x{0600}-\x{06FF}a-zA-Z0-9_.;»�
 		<operation action="replace">
 			<searchcode><![CDATA[.date]]></searchcode>
 			<replacecode><![CDATA[.jdate]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/inc/lostpassword.php">
+		<operation action="replace">
+			<searchcode><![CDATA[<div class="text-muted text-size-small text-center">DataLife Engine&reg;  Copyright 2004-{$year}<br>&copy; <a href="https://dle-news.ru/" target="_blank">SoftNews Media Group</a> All rights reserved.</div>]]></searchcode>
+			<replacecode><![CDATA[<div class="text-muted text-size-small text-center ltr">DataLife Engine&reg;  Copyright {$year}<br>&copy; <a href="https://dlefa.ir/" target="_blank">dlefa</a> All rights reserved.</div>]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/inc/twofactor.php">
+		<operation action="replace">
+			<searchcode><![CDATA[<div class="text-muted text-size-small text-center">DataLife Engine&reg;  Copyright 2004-{$year}<br>&copy; <a href="https://dle-news.ru/" target="_blank">SoftNews Media Group</a> All rights reserved.</div>]]></searchcode>
+			<replacecode><![CDATA[<div class="text-muted text-size-small text-center ltr">DataLife Engine&reg;  Copyright {$year}<br>&copy; <a href="https://dlefa.ir/" target="_blank">dlefa</a> All rights reserved.</div>]]></replacecode>
 		</operation>
 	</file>
 </dleplugin>
