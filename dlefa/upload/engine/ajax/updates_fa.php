@@ -30,9 +30,10 @@ if( $_REQUEST['user_hash'] == "" OR $_REQUEST['user_hash'] != $dle_login_hash ) 
 }
 
 $_REQUEST['versionid'] = htmlspecialchars( strip_tags($_REQUEST['versionid']), ENT_QUOTES, $config['charset']);
+$_REQUEST['build'] = htmlspecialchars( strip_tags($_REQUEST['build']), ENT_QUOTES, $config['charset']);
 
-$data = @file_get_contents("https://dlefa.ir/extras/update.php?version_id=".$_REQUEST['versionid']);
+$data = @file_get_contents("https://dlefa.ir/extras/update.php?version_id=".$_REQUEST['versionid']."&build=".$_REQUEST['build']);
 
 if (!strlen($data)) echo $lang['no_update']; else echo $data;
-	
+
 ?>
