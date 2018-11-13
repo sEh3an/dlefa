@@ -3,7 +3,7 @@
 	<name>Persian DataLife Engine</name>
 	<description>نسخه فارسی سیستم مدیریت محتوای دیتالایف انجین</description>
 	<icon></icon>
-	<version>1.1</version>
+	<version>1.2</version>
 	<dleversion>13.0</dleversion>
 	<versioncompare>greater</versioncompare>
 	<upgradeurl>https://dlefa.ir/updates/dlefa.xml</upgradeurl>
@@ -425,6 +425,12 @@ else $alt_name = fatotranslit( preg_replace("/[^\x{0600}-\x{06FF}a-zA-Z0-9_.;»�
 			<searchcode><![CDATA[$full_link = $config['http_home_url'] . date( 'Y/m/d/', $row['newsdate'] ) . $row['alt_name'] . ".html";]]></searchcode>
 			<replacecode><![CDATA[$full_link = $config['http_home_url'] . jdate( 'Y/m/d/', $row['newsdate'] ) . $row['alt_name'] . ".html";]]></replacecode>
 		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[		if( !$langformatdatefull ) $langformatdatefull = "d.m.Y H:i:s";
+		$date = date( $langformatdatefull, $row['date'] );]]></searchcode>
+			<replacecode><![CDATA[		if( !$langformatdatefull ) $langformatdatefull = "d M Y ساعت H:i";
+		$date = jdate( $langformatdatefull, $row['date'] );]]></replacecode>
+		</operation>
 	</file>
 	<file name="engine/inc/complaint.php">
 		<operation action="replace">
@@ -661,6 +667,77 @@ else $alt_name = fatotranslit( preg_replace("/[^\x{0600}-\x{06FF}a-zA-Z0-9_.;»�
 		<operation action="replace">
 			<searchcode><![CDATA[strtotime]]></searchcode>
 			<replacecode><![CDATA[jstrtotime]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/inc/upgrade.php">
+		<operation action="replace">
+			<searchcode><![CDATA[	if( strlen(trim((string)$_REQUEST['dle_key'])) != 29 ){
+		echo "{\"error\": \"{$lang['upgr_f_error_5']}\"}";
+		die();
+	}
+	
+	$params = array(
+		'action' => 'info',
+		'domain' => $_SERVER['HTTP_HOST'],
+		'key' => (string)$_REQUEST['dle_key'],
+		'site_key' => get_domen_hash()
+	);
+
+	$data = http_get_contents("http://dle-news.ru/extras/upgrade/index.php?".http_build_query($params, '', '&') );
+]]></searchcode>
+			<replacecode><![CDATA[	$currect_version = VERSIONID;
+	$currect_build = BUILDID;
+	
+	$data = @file_get_contents('https://dlefa.ir/upgrade/update.json?version_id='.$currect_version.'&build='.$currect_build);]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[			if( $data['error']) {
+				
+				if( $data['error'] == "-3" ) $data['error'] = $lang['upgr_f_error_2'];
+				if( $data['error'] == "-2" ) $data['error'] = $lang['upgr_f_error_3'];
+				if( $data['error'] == "-1" ) $data['error'] = $lang['upgr_f_error_4'];
+				
+				echo "{\"error\": \"{$data['error']}\"}";
+				die();
+			}
+			
+			if( $data['distr']['version'] ) {
+				if( version_compare(VERSIONID, $data['distr']['version'], '>=') AND version_compare(BUILDID, $data['distr']['build'], '>=') AND !defined('DEMOVERSION') ) {
+					echo "{\"error\": \"{$lang['upgr_f_error_6']}\"}";
+					die();
+				} else {
+					$_SESSION['distr'] = $data['distr'];
+					echo "{\"status\": \"ok\"}";
+					die();	
+				}
+			}]]></searchcode>
+			<replacecode><![CDATA[			if( $data['error']) {
+	
+				echo "{\"error\": \"{$data['error']}\"}";
+				die();
+			}
+			
+			if( $data['messages'] ) {
+				foreach( $data['messages'] as $data['distr'] ){
+
+					if( version_compare(VERSIONID, $data['distr']['version'], '>=') AND version_compare(BUILDID, $data['distr']['build'], '>=') AND !defined('DEMOVERSION') ) {
+						echo "{\"error\": \"{$lang['upgr_f_error_6']}\"}";
+						die();
+					} else {
+						$_SESSION['distr'] = $data['distr'];
+						echo "{\"status\": \"ok\"}";
+						die();	
+					}
+				}
+			}]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[{$lang['upgr_act_info']}<br /><br /><input type="text" name="sitekey" id="sitekey" placeholder="{$lang['trial_key']}" class="classic width-400 mr-10"><button onclick="dle_activation( 'key' ); return false;" class="btn bg-teal btn-raised btn-sm">{$lang['upgr_next']}</button><br /><br /><div id="result_info">{$lang['key_format']} <b>XXXXX-XXXXX-XXXXX-XXXXX-XXXXX</b></div>]]></searchcode>
+			<replacecode><![CDATA[{$lang['upgr_act_info']}<br /><br /><input type="text" name="sitekey" id="sitekey" placeholder="{$lang['trial_key']}" value="{$config['http_home_url']}" class="classic width-400 ml-10 ltr"><button onclick="dle_activation( 'key' ); return false;" class="btn bg-teal btn-raised btn-sm">{$lang['upgr_next']}</button><br /><br /><div id="result_info"></div>]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[document.getElementById( 'result_info' ).innerHTML = '{$lang['key_format']} <b>XXXXX-XXXXX-XXXXX-XXXXX-XXXXX</b>';]]></searchcode>
+			<replacecode><![CDATA[document.getElementById( 'result_info' ).innerHTML = '';]]></replacecode>
 		</operation>
 	</file>
 	<file name="engine/inc/rss.php">
@@ -909,6 +986,14 @@ else $alt_name = fatotranslit( preg_replace("/[^\x{0600}-\x{06FF}a-zA-Z0-9_.;»�
 		<operation action="replace">
 			<searchcode><![CDATA[<div class="text-muted text-size-small text-center">DataLife Engine&reg;  Copyright 2004-{$year}<br>&copy; <a href="https://dle-news.ru/" target="_blank">SoftNews Media Group</a> All rights reserved.</div>]]></searchcode>
 			<replacecode><![CDATA[<div class="text-muted text-size-small text-center ltr">DataLife Engine&reg;  Copyright {$year}<br>&copy; <a href="https://dlefa.ir/" target="_blank">dlefa</a> All rights reserved.</div>]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/modules/addnews.php">
+		<operation action="replace">
+			<searchcode><![CDATA[if( $alt_name == "" OR !$alt_name ) $alt_name = totranslit( stripslashes( $title ), true, false );
+else $alt_name = totranslit( $alt_name, true, false );]]></searchcode>
+			<replacecode><![CDATA[if( $alt_name == "" OR !$alt_name ) $alt_name = fatotranslit( stripslashes( preg_replace("/[^\x{0600}-\x{06FF}a-zA-Z0-9_.;»«-]/u", "-", $title)), true, false);
+else $alt_name = fatotranslit( preg_replace("/[^\x{0600}-\x{06FF}a-zA-Z0-9_.;»«-]/u", "-", $alt_name), true, false );]]></replacecode>
 		</operation>
 	</file>
 </dleplugin>
