@@ -2,7 +2,7 @@
 A plugin for having a Persian Datalife Engine ver13.1
 
 ![DLE](https://img.shields.io/badge/DLE-13.x-green.svg?style=flat-square "DLE Version")
-![version](https://img.shields.io/badge/version-1.0-red.svg?style=flat-square "Version")
+![version](https://img.shields.io/badge/version-1.2-red.svg?style=flat-square "Version")
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/dle-modules/DLE-BlockPro/blob/master/LICENSE)
 
 <div dir="rtl">
