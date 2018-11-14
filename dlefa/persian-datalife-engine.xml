@@ -3,8 +3,8 @@
 	<name>Persian DataLife Engine</name>
 	<description>نسخه فارسی سیستم مدیریت محتوای دیتالایف انجین</description>
 	<icon></icon>
-	<version>1.2</version>
-	<dleversion>13.0</dleversion>
+	<version>1.3</version>
+	<dleversion>13.1</dleversion>
 	<versioncompare>greater</versioncompare>
 	<upgradeurl>https://dlefa.ir/updates/dlefa.xml</upgradeurl>
 	<filedelete>1</filedelete>
@@ -272,6 +272,7 @@ $('[data-rel=calendardate]').persianDatepicker({
 			<replacecode><![CDATA["./engine/classes/jdate.class.php",
 "./engine/ajax/calendar_fa.php",
 "./engine/ajax/updates_fa.php",
+"./engine/inc/upgrade/plugins.php",
 "./engine/modules/calendar_fa.php",]]></replacecode>
 		</operation>
 	</file>
@@ -291,16 +292,6 @@ $('[data-rel=calendardate]').persianDatepicker({
 			<replacecode><![CDATA[$loc = $this->home . jdate( 'Y/m/d/', $row['date'] ) . $row['alt_name'] . ".html";]]></replacecode>
 		</operation>
 	</file>
-	<file name="engine/classes/min/groupsConfig.php">
-		<operation action="replace">
-			<searchcode><![CDATA[    'admin' => array(
-     	$min_documentRoot . '/engine/skins/javascripts/application.js', 
-    ),]]></searchcode>
-			<replacecode><![CDATA[    'admin_fa' => array(
-     	$min_documentRoot . '/engine/skins/javascripts/application_fa.js', 
-    ),]]></replacecode>
-		</operation>
-	</file>
 	<file name="engine/inc/include/functions.inc.php">
 		<operation action="before">
 			<searchcode><![CDATA[if ( $config['auth_domain'] ) {]]></searchcode>
@@ -317,6 +308,27 @@ $('[data-rel=calendardate]').persianDatepicker({
 	$local->setTimeZone(new DateTimeZone($localzone));
 
 	return strtr( @jdate( $format, $stamp ), $langdate );]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[$js_array[] = "<script src=\"engine/classes/min/index.php?charset={$config['charset']}&amp;g=admin&amp;v=25\"></script>";]]></searchcode>
+			<replacecode><![CDATA[		if (isset( $_COOKIE['selected_language'] )) {
+			
+			if ($_COOKIE['selected_language'] == 'Farsi'){
+				$js_array[] = "<script src=\"engine/classes/min/index.php?charset={$config['charset']}&amp;g=dlefa&amp;v=25\"></script>";
+			}else{	
+				$js_array[] = "<script src=\"engine/classes/min/index.php?charset={$config['charset']}&amp;g=admin&amp;v=25\"></script>";
+			}
+			
+			
+		}else{
+			
+			if ($config['langs'] == 'Farsi'){
+				$js_array[] = "<script src=\"engine/classes/min/index.php?charset={$config['charset']}&amp;g=dlefa&amp;v=25\"></script>";
+			}else{	
+				$js_array[] = "<script src=\"engine/classes/min/index.php?charset={$config['charset']}&amp;g=admin&amp;v=25\"></script>";
+			}
+			
+		}]]></replacecode>
 		</operation>
 	</file>
 	<file name="engine/inc/addnews.php">
@@ -688,7 +700,12 @@ else $alt_name = fatotranslit( preg_replace("/[^\x{0600}-\x{06FF}a-zA-Z0-9_.;»�
 			<replacecode><![CDATA[	$currect_version = VERSIONID;
 	$currect_build = BUILDID;
 	
-	$data = @file_get_contents('https://dlefa.ir/upgrade/update.json?version_id='.$currect_version.'&build='.$currect_build);]]></replacecode>
+	if( $_REQUEST['dle_key'] != $config['http_home_url'] ){
+		echo "{\"error\": \"نام دامنه وارد شده در فرم با آدرس سایت شما همخوانی ندارد. لطفا پس از تصحیح دوباره تست نمایید.\"}";
+		die();
+	}
+
+	$data = @file_get_contents('https://dlefa.ir/upgrade/update.json?version_id='.$currect_version.'&build='.$currect_build.'&site='.$_REQUEST['dle_key']);]]></replacecode>
 		</operation>
 		<operation action="replace">
 			<searchcode><![CDATA[			if( $data['error']) {
@@ -797,6 +814,10 @@ else $alt_name = fatotranslit( preg_replace("/[^\x{0600}-\x{06FF}a-zA-Z0-9_.;»�
 		<div id="filetree" class="filetree"></div>
 	  </div>]]></replacecode>
 		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[<div class="col-md-12 mb-10">{$lang['templates_help']} <a class="main" href="http://dle-news.ru/extras/online/all2.html" target="_blank">http://dle-news.ru/extras/online/all2.html</a></div>]]></searchcode>
+			<replacecode><![CDATA[<div class="col-md-12 mb-10">{$lang['templates_help']} <a class="main" href="https://learn.dlefa.ir/" target="_blank">آموزش تگ های سیستم</a></div>]]></replacecode>
+		</operation>
 	</file>
 	<file name="engine/inc/main.php">
 		<operation action="replace">
@@ -870,6 +891,14 @@ else $alt_name = fatotranslit( preg_replace("/[^\x{0600}-\x{06FF}a-zA-Z0-9_.;»�
 		<operation action="replace">
 			<searchcode><![CDATA[$full_link = $config['http_home_url'] . date( 'Y/m/d/', $row['date'] ) . $row['alt_name'] . ".html";]]></searchcode>
 			<replacecode><![CDATA[$full_link = $config['http_home_url'] . jdate( 'Y/m/d/', $row['date'] ) . $row['alt_name'] . ".html";]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/modules/addnews.php">
+		<operation action="replace">
+			<searchcode><![CDATA[if( $alt_name == "" OR !$alt_name ) $alt_name = totranslit( stripslashes( $title ), true, false );
+else $alt_name = totranslit( $alt_name, true, false );]]></searchcode>
+			<replacecode><![CDATA[if( $alt_name == "" OR !$alt_name ) $alt_name = fatotranslit( stripslashes( preg_replace("/[^\x{0600}-\x{06FF}a-zA-Z0-9_.;»«-]/u", "-", $title)), true, false);
+else $alt_name = fatotranslit( preg_replace("/[^\x{0600}-\x{06FF}a-zA-Z0-9_.;»«-]/u", "-", $alt_name), true, false );]]></replacecode>
 		</operation>
 	</file>
 	<file name="engine/modules/functions.php">
@@ -986,14 +1015,6 @@ else $alt_name = fatotranslit( preg_replace("/[^\x{0600}-\x{06FF}a-zA-Z0-9_.;»�
 		<operation action="replace">
 			<searchcode><![CDATA[<div class="text-muted text-size-small text-center">DataLife Engine&reg;  Copyright 2004-{$year}<br>&copy; <a href="https://dle-news.ru/" target="_blank">SoftNews Media Group</a> All rights reserved.</div>]]></searchcode>
 			<replacecode><![CDATA[<div class="text-muted text-size-small text-center ltr">DataLife Engine&reg;  Copyright {$year}<br>&copy; <a href="https://dlefa.ir/" target="_blank">dlefa</a> All rights reserved.</div>]]></replacecode>
-		</operation>
-	</file>
-	<file name="engine/modules/addnews.php">
-		<operation action="replace">
-			<searchcode><![CDATA[if( $alt_name == "" OR !$alt_name ) $alt_name = totranslit( stripslashes( $title ), true, false );
-else $alt_name = totranslit( $alt_name, true, false );]]></searchcode>
-			<replacecode><![CDATA[if( $alt_name == "" OR !$alt_name ) $alt_name = fatotranslit( stripslashes( preg_replace("/[^\x{0600}-\x{06FF}a-zA-Z0-9_.;»«-]/u", "-", $title)), true, false);
-else $alt_name = fatotranslit( preg_replace("/[^\x{0600}-\x{06FF}a-zA-Z0-9_.;»«-]/u", "-", $alt_name), true, false );]]></replacecode>
 		</operation>
 	</file>
 </dleplugin>
