@@ -1,0 +1,1020 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dleplugin>
+	<name>Persian DataLife Engine</name>
+	<description>نسخه فارسی سیستم مدیریت محتوای دیتالایف انجین</description>
+	<icon></icon>
+	<version>1.3</version>
+	<dleversion>13.1</dleversion>
+	<versioncompare>greater</versioncompare>
+	<upgradeurl>https://dlefa.ir/updates/dlefa.xml</upgradeurl>
+	<filedelete>1</filedelete>
+	<mysqlinstall><![CDATA[]]></mysqlinstall>
+	<mysqlupgrade><![CDATA[]]></mysqlupgrade>
+	<mysqlenable><![CDATA[]]></mysqlenable>
+	<mysqldisable><![CDATA[]]></mysqldisable>
+	<mysqldelete><![CDATA[]]></mysqldelete>
+	<file name="engine/download.php">
+		<operation action="replace">
+			<searchcode><![CDATA[$full_link = $config['http_home_url'] . date( 'Y/m/d/', $row_news['date'] ) . $row_news['alt_name'] . ".html";]]></searchcode>
+			<replacecode><![CDATA[$full_link = $config['http_home_url'] . jdate( 'Y/m/d/', $row_news['date'] ) . $row_news['alt_name'] . ".html";]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/engine.php">
+		<operation action="replace">
+			<searchcode><![CDATA[1970]]></searchcode>
+			<replacecode><![CDATA[1300]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[2100]]></searchcode>
+			<replacecode><![CDATA[1500]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[$year= date( 'Y', $_TIME );]]></searchcode>
+			<replacecode><![CDATA[$year= jdate( 'Y', $_TIME );]]></replacecode>
+		</operation>
+		<operation action="before">
+			<searchcode><![CDATA[$url_page = $config['http_home_url'] . $year;]]></searchcode>
+			<replacecode><![CDATA[$starty = date("Y-m-d", jmaketime(0, 0, 0, 1, 1, $year));
+$endy = date("Y-m-d", jmaketime(0, 0, 0, 1, 1, ($year+1)));]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[$sql_select = "SELECT p.id, p.autor, p.date, p.short_story, CHAR_LENGTH(p.full_story) as full_story, p.xfields, p.title, p.category, p.alt_name, p.comm_num, p.allow_comm, p.fixed, p.tags, e.news_read, e.allow_rate, e.rating, e.vote_num, e.votes, e.view_edit, e.editdate, e.editor, e.reason FROM " . PREFIX . "_post p LEFT JOIN " . PREFIX . "_post_extras e ON (p.id=e.news_id) WHERE {$stop_list}date >= '{$year}-01-01'AND date < '{$year}-01-01' + INTERVAL 1 YEAR AND approve=1" . $where_date . " ORDER BY " . $news_sort_by . " " . $news_direction_by . " LIMIT " . $cstart . "," . $config['news_number'];
+$sql_count = "SELECT COUNT(*) as count FROM " . PREFIX . "_post where {$stop_list}date >= '{$year}-01-01'AND date < '{$year}-01-01' + INTERVAL 1 YEAR AND approve=1" . $where_date;]]></searchcode>
+			<replacecode><![CDATA[$sql_select = "SELECT p.id, p.autor, p.date, p.short_story, CHAR_LENGTH(p.full_story) as full_story, p.xfields, p.title, p.category, p.alt_name, p.comm_num, p.allow_comm, p.fixed, p.tags, e.news_read, e.allow_rate, e.rating, e.vote_num, e.votes, e.view_edit, e.editdate, e.editor, e.reason FROM " . PREFIX . "_post p LEFT JOIN " . PREFIX . "_post_extras e ON (p.id=e.news_id) WHERE {$stop_list}date >= '{$starty}-01-01'AND date < '{$starty}-01-01' + INTERVAL 1 YEAR AND approve=1" . $where_date . " ORDER BY " . $news_sort_by . " " . $news_direction_by . " LIMIT " . $cstart . "," . $config['news_number'];
+$sql_count = "SELECT COUNT(*) as count FROM " . PREFIX . "_post where {$stop_list}date >= '$starty' AND date < '$endy' AND approve=1" . $where_date;]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[$month= date( 'm', $_TIME );]]></searchcode>
+			<replacecode><![CDATA[$month= jdate( 'm', $_TIME );]]></replacecode>
+		</operation>
+		<operation action="before">
+			<searchcode><![CDATA[$url_page = $config['http_home_url'] . $year . "/" . $month;]]></searchcode>
+			<replacecode><![CDATA[$startm = date("Y-m-d", jmaketime(0, 0, 0, $month, 1, $year));
+$endm = date("Y-m-d", jmaketime(0, 0, 0, ($month+1), 1, $year));]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[$sql_select = "SELECT p.id, p.autor, p.date, p.short_story, CHAR_LENGTH(p.full_story) as full_story, p.xfields, p.title, p.category, p.alt_name, p.comm_num, p.allow_comm, p.fixed, p.tags, e.news_read, e.allow_rate, e.rating, e.vote_num, e.votes, e.view_edit, e.editdate, e.editor, e.reason FROM " . PREFIX . "_post p LEFT JOIN " . PREFIX . "_post_extras e ON (p.id=e.news_id) WHERE {$stop_list}date >= '{$year}-{$month}-01'AND date < '{$year}-{$month}-01' + INTERVAL 1 MONTH AND approve=1" . $where_date . " ORDER BY " . $news_sort_by . " " . $news_direction_by . " LIMIT " . $cstart . "," . $config['news_number'];
+$sql_count = "SELECT COUNT(*) as count FROM " . PREFIX . "_post where {$stop_list}date >= '{$year}-{$month}-01'AND date < '{$year}-{$month}-01' + INTERVAL 1 MONTH AND approve=1" . $where_date;]]></searchcode>
+			<replacecode><![CDATA[$sql_select = "SELECT p.id, p.autor, p.date, p.short_story, CHAR_LENGTH(p.full_story) as full_story, p.xfields, p.title, p.category, p.alt_name, p.comm_num, p.allow_comm, p.fixed, p.tags, e.news_read, e.allow_rate, e.rating, e.vote_num, e.votes, e.view_edit, e.editdate, e.editor, e.reason FROM " . PREFIX . "_post p LEFT JOIN " . PREFIX . "_post_extras e ON (p.id=e.news_id) WHERE {$stop_list}date >= '{$startm}-01'AND date < '{$startm}-01' + INTERVAL 1 MONTH AND approve=1" . $where_date . " ORDER BY " . $news_sort_by . " " . $news_direction_by . " LIMIT " . $cstart . "," . $config['news_number'];
+$sql_count = "SELECT COUNT(*) as count FROM " . PREFIX . "_post where {$stop_list}date >= '$startm' AND date < '$endm' AND approve=1" . $where_date;]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[$day= date( 'd', $_TIME );]]></searchcode>
+			<replacecode><![CDATA[$day= jdate( 'd', $_TIME );]]></replacecode>
+		</operation>
+		<operation action="before">
+			<searchcode><![CDATA[$url_page = $config['http_home_url'] . $year . "/" . $month . "/" . $day;]]></searchcode>
+			<replacecode><![CDATA[$startd = date("Y-m-d", jmaketime(0, 0, 0, $month, $day, $year));
+$endd = date("Y-m-d", jmaketime(24, 0, 0, $month, $day, $year));]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[$sql_select = "SELECT p.id, p.autor, p.date, p.short_story, CHAR_LENGTH(p.full_story) as full_story, p.xfields, p.title, p.category, p.alt_name, p.comm_num, p.allow_comm, p.fixed, p.tags, e.news_read, e.allow_rate, e.rating, e.vote_num, e.votes, e.view_edit, e.editdate, e.editor, e.reason FROM " . PREFIX . "_post p LEFT JOIN " . PREFIX . "_post_extras e ON (p.id=e.news_id) WHERE {$stop_list}date >= '{$year}-{$month}-{$day}' AND date < '{$year}-{$month}-{$day}' + INTERVAL 24 HOUR AND approve=1" . $where_date . " ORDER BY " . $news_sort_by . " " . $news_direction_by . " LIMIT " . $cstart . "," . $config['news_number'];
+$sql_count = "SELECT COUNT(*) as count FROM " . PREFIX . "_post WHERE {$stop_list}date >= '{$year}-{$month}-{$day}' AND date < '{$year}-{$month}-{$day}' + INTERVAL 24 HOUR AND approve=1" . $where_date;]]></searchcode>
+			<replacecode><![CDATA[$sql_select = "SELECT p.id, p.autor, p.date, p.short_story, CHAR_LENGTH(p.full_story) as full_story, p.xfields, p.title, p.category, p.alt_name, p.comm_num, p.allow_comm, p.fixed, p.tags, e.news_read, e.allow_rate, e.rating, e.vote_num, e.votes, e.view_edit, e.editdate, e.editor, e.reason FROM " . PREFIX . "_post p LEFT JOIN " . PREFIX . "_post_extras e ON (p.id=e.news_id) WHERE {$stop_list}date >= '{$startd}' AND date < '{$startd}' + INTERVAL 24 HOUR AND approve=1" . $where_date . " ORDER BY " . $news_sort_by . " " . $news_direction_by . " LIMIT " . $cstart . "," . $config['news_number'];
+$sql_count = "SELECT COUNT(*) as count FROM " . PREFIX . "_post WHERE {$stop_list}date >= '{$startd}' AND date < '{$startd}' + INTERVAL 24 HOUR AND approve=1" . $where_date;]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[if (! $newsid) $sql_news = "SELECT * FROM " . PREFIX . "_post LEFT JOIN " . PREFIX . "_post_extras ON (" . PREFIX . "_post.id=" . PREFIX . "_post_extras.news_id) WHERE alt_name ='$news_name' AND date >= '{$year}-{$month}-{$day}' AND date < '{$year}-{$month}-{$day}' + INTERVAL 24 HOUR LIMIT 1";
+else $sql_news = "SELECT * FROM " . PREFIX . "_post LEFT JOIN " . PREFIX . "_post_extras ON (" . PREFIX . "_post.id=" . PREFIX . "_post_extras.news_id) WHERE  id = '{$newsid}'";]]></searchcode>
+			<replacecode><![CDATA[if (! $newsid) {
+	$startd = date("Y-m-d", jmaketime(0, 0, 0, $month, $day, $year));
+	$endd = date("Y-m-d", jmaketime(24, 0, 0, $month, $day, $year));
+	$sql_news = "SELECT * FROM " . PREFIX . "_post LEFT JOIN " . PREFIX . "_post_extras ON (" . PREFIX . "_post.id=" . PREFIX . "_post_extras.news_id) WHERE alt_name ='$news_name' AND date >= '$startd' AND date < '$endd' LIMIT 1";
+} else {
+	$sql_news = "SELECT * FROM " . PREFIX . "_post LEFT JOIN " . PREFIX . "_post_extras ON (" . PREFIX . "_post.id=" . PREFIX . "_post_extras.news_id) WHERE  id = '{$newsid}'";
+}]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[if ($year != '' and $month != '' and $day == '') $nam_e = $lang['title_date'] . ' ' . $r[$month - 1] . ' ' . $year . ' ' . $lang['title_year1'];
+if ($year != '' and $month != '' and $day != '' and $subaction == '') $nam_e = $lang['title_date'] . ' ' . $day . '.' . $month . '.' . $year;]]></searchcode>
+			<replacecode><![CDATA[if ($year != '' and $month == '' and $day == '') $nam_e = $lang['title_date'] . ' ' . $lang['title_year'] . '  ' . $year;
+if ($year != '' and $month != '' and $day == '') $nam_e = $lang['title_date'] . ' ماه ' . $month  . ' ' . $lang['title_year1'] . ' ' . $year;]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[<meta name="generator" content="DataLife Engine (http://dle-news.ru)">]]></searchcode>
+			<replacecode><![CDATA[<meta name="generator" content="Persian DataLife Engine (http://dlefa.ir)">]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/init.php">
+		<operation action="replace">
+			<searchcode><![CDATA[1970]]></searchcode>
+			<replacecode><![CDATA[1300]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[2100]]></searchcode>
+			<replacecode><![CDATA[1500]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[if ($config['allow_calendar'] OR $config['allow_archives']) include_once (DLEPlugins::Check(ENGINE_DIR . '/modules/calendar.php'));]]></searchcode>
+			<replacecode><![CDATA[if (isset( $_COOKIE['selected_language'] )) {			
+	if ($_COOKIE['selected_language'] == 'Farsi'){
+      if ($config['allow_calendar'] OR $config['allow_archives']) include_once (DLEPlugins::Check(ENGINE_DIR . '/modules/calendar_fa.php'));
+	}else{
+      if ($config['allow_calendar'] OR $config['allow_archives']) include_once (DLEPlugins::Check(ENGINE_DIR . '/modules/calendar.php'));
+	}			
+}else{			
+	if ($config['langs'] == 'Farsi'){
+      if ($config['allow_calendar'] OR $config['allow_archives']) include_once (DLEPlugins::Check(ENGINE_DIR . '/modules/calendar_fa.php'));
+	}else{
+      if ($config['allow_calendar'] OR $config['allow_archives']) include_once (DLEPlugins::Check(ENGINE_DIR . '/modules/calendar.php'));
+	}			
+}]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/ajax/adminfunction.php">
+		<operation action="replace">
+			<searchcode><![CDATA[$full_link = $config['http_home_url'] . date( 'Y/m/d/', $row['date'] ) . $row['alt_name'] . ".html";]]></searchcode>
+			<replacecode><![CDATA[$full_link = $config['http_home_url'] . jdate( 'Y/m/d/', $row['date'] ) . $row['alt_name'] . ".html";]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/ajax/clean.php">
+		<operation action="replace">
+			<searchcode><![CDATA[if ((@strtotime($_REQUEST['date']) === -1) OR (@strtotime($_REQUEST['date']) === false) OR (trim($_REQUEST['date']) == ""))]]></searchcode>
+			<replacecode><![CDATA[if ((@jstrtotime($_REQUEST['date']) === -1) OR (@jstrtotime($_REQUEST['date']) === false) OR (trim($_REQUEST['date']) == ""))]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[$_REQUEST['date'] = $db->safesql( $_REQUEST['date'] );]]></searchcode>
+			<replacecode><![CDATA[$_REQUEST['date'] = date('Y-m-d', jstrtotime($db->safesql( $_REQUEST['date'] )));]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[<script>
+	$('[data-rel=calendardate]').datetimepicker({
+	  format:'Y-m-d',
+	  closeOnDateSelect:true,
+	  dayOfWeekStart: 1,
+	  timepicker:false,
+	  scrollMonth:false,
+	  scrollInput:false,
+	  i18n: cal_language
+	});
+</script>]]></searchcode>
+			<replacecode><![CDATA[<script>
+$('[data-rel=calendardate]').persianDatepicker({
+	initialValueType: 'persian',
+	initialValue: false,
+	format: 'YYYY-MM-DD',
+	toolbox: {
+		calendarSwitch: {enabled: false},
+		submitButton: {enabled: true},
+		todayButton: {enabled: true},
+	},
+	timePicker: {enabled: false},
+});
+</script>]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[<script>
+	$('[data-rel=calendardate]').datetimepicker({
+	  format:'Y-m-d',
+	  closeOnDateSelect:true,
+	  dayOfWeekStart: 1,
+	  timepicker:false,
+	  scrollMonth:false,
+	  scrollInput:false,
+	  i18n: cal_language
+	});
+	
+	$('.categoryselect').chosen({no_results_text: '{$lang['addnews_cat_fault']}'});
+	
+</script>]]></searchcode>
+			<replacecode><![CDATA[<script>
+    $('[data-rel=calendardate]').persianDatepicker({
+        initialValueType: 'persian',
+        initialValue: false,
+        format: 'YYYY-MM-DD',
+        toolbox: {
+            calendarSwitch: {enabled: false},
+            submitButton: {enabled: true},
+            todayButton: {enabled: true},
+        },
+        timePicker: {enabled: false},
+    });
+	$('.categoryselect').chosen({no_results_text: '{$lang['addnews_cat_fault']}'});
+</script>]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/ajax/comments.php">
+		<operation action="replace">
+			<searchcode><![CDATA[$config['http_home_url'] . date( 'Y/m/d/', $row['date'] )]]></searchcode>
+			<replacecode><![CDATA[$config['http_home_url'] . jdate( 'Y/m/d/', $row['date'] )]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/ajax/editcomments.php">
+		<operation action="replace">
+			<searchcode><![CDATA[$full_link = $config['http_home_url'] . date( 'Y/m/d/', $row['date'] ) . $row['alt_name'] . ".html";]]></searchcode>
+			<replacecode><![CDATA[$full_link = $config['http_home_url'] . jdate( 'Y/m/d/', $row['date'] ) . $row['alt_name'] . ".html";]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/ajax/editnews.php">
+		<operation action="replace">
+			<searchcode><![CDATA[$newstime = strtotime( $row['date'] );]]></searchcode>
+			<replacecode><![CDATA[$newstime = jstrtotime( $row['date'] );]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/ajax/find_relates.php">
+		<operation action="replace">
+			<searchcode><![CDATA[$news_date = date( 'd-m-Y', $related['date'] );]]></searchcode>
+			<replacecode><![CDATA[$news_date = jdate( 'Y-m-d', $related['date'] );]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[$full_link = $config['http_home_url'] . date( 'Y/m/d/', $related['date'] ) . $related['alt_name'] . ".html";]]></searchcode>
+			<replacecode><![CDATA[$full_link = $config['http_home_url'] . jdate( 'Y/m/d/', $related['date'] ) . $related['alt_name'] . ".html";]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/ajax/search.php">
+		<operation action="replace">
+			<searchcode><![CDATA[$full_link = $config['http_home_url'] . date( 'Y/m/d/', $row['date'] ) . $row['alt_name'] . ".html";]]></searchcode>
+			<replacecode><![CDATA[$full_link = $config['http_home_url'] . jdate( 'Y/m/d/', $row['date'] ) . $row['alt_name'] . ".html";]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/ajax/upload.php">
+		<operation action="replace">
+			<searchcode><![CDATA[$css_path = $config['http_home_url']."engine/skins/stylesheets/frame.css";]]></searchcode>
+			<replacecode><![CDATA[		if (isset( $_COOKIE['selected_language'] )) {
+			
+			if ($_COOKIE['selected_language'] == 'Farsi'){
+				$css_path = $config['http_home_url']."engine/skins/stylesheets/frame_fa.css";
+			}else{	
+				$css_path = $config['http_home_url']."engine/skins/stylesheets/frame.css";
+			}
+			
+			
+		}else{
+			
+			if ($config['langs'] == 'Farsi'){
+				$css_path = $config['http_home_url']."engine/skins/stylesheets/frame_fa.css";
+			}else{	
+				$css_path = $config['http_home_url']."engine/skins/stylesheets/frame.css";
+			}
+			
+		}]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/ajax/profile.php">
+		<operation action="replace">
+			<searchcode><![CDATA[0, ',', ' ']]></searchcode>
+			<replacecode><![CDATA[0, '', '']]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/ajax/antivirus.php">
+		<operation action="replace">
+			<searchcode><![CDATA[$file_date = date("d.m.Y H:i:s",]]></searchcode>
+			<replacecode><![CDATA[$file_date = jdate("d.m.Y H:i:s",]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/classes/antivirus.class.php">
+		<operation action="replace">
+			<searchcode><![CDATA[$file_date = date("d.m.Y H:i:s", filectime($dir . $this->dir_split . $file));]]></searchcode>
+			<replacecode><![CDATA[$file_date = jdate("Y/m/d H:i:s", filectime($dir . $this->dir_split . $file));]]></replacecode>
+		</operation>
+		<operation action="after">
+			<searchcode><![CDATA[var $good_files       = array(]]></searchcode>
+			<replacecode><![CDATA["./engine/classes/jdate.class.php",
+"./engine/ajax/calendar_fa.php",
+"./engine/ajax/updates_fa.php",
+"./engine/inc/upgrade/plugins.php",
+"./engine/modules/calendar_fa.php",]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/classes/comments.class.php">
+		<operation action="replace">
+			<searchcode><![CDATA[$full_link = $config['http_home_url'] . date( 'Y/m/d/', strtotime ($row['newsdate']) ) . $row['alt_name'] . ".html";]]></searchcode>
+			<replacecode><![CDATA[$full_link = $config['http_home_url'] . jdate( 'Y/m/d/', strtotime ($row['newsdate']) ) . $row['alt_name'] . ".html";]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[0, ',', ' ']]></searchcode>
+			<replacecode><![CDATA[0, '', '']]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/classes/google.class.php">
+		<operation action="replace">
+			<searchcode><![CDATA[$loc = $this->home . date( 'Y/m/d/', $row['date'] ) . $row['alt_name'] . ".html";]]></searchcode>
+			<replacecode><![CDATA[$loc = $this->home . jdate( 'Y/m/d/', $row['date'] ) . $row['alt_name'] . ".html";]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/inc/include/functions.inc.php">
+		<operation action="before">
+			<searchcode><![CDATA[if ( $config['auth_domain'] ) {]]></searchcode>
+			<replacecode><![CDATA[require_once (DLEPlugins::Check(ROOT_DIR . '/engine/classes/jdate.class.php'));]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[	if (!in_array($localzone, $timezones)) $localzone = 'Europe/Moscow';
+
+	$local->setTimeZone(new DateTimeZone($localzone));
+
+	return strtr( $local->format($format), $langdate );]]></searchcode>
+			<replacecode><![CDATA[	if (!in_array($localzone, $timezones)) $localzone = 'Asia/Tehran';
+
+	$local->setTimeZone(new DateTimeZone($localzone));
+
+	return strtr( @jdate( $format, $stamp ), $langdate );]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[$js_array[] = "<script src=\"engine/classes/min/index.php?charset={$config['charset']}&amp;g=admin&amp;v=25\"></script>";]]></searchcode>
+			<replacecode><![CDATA[		if (isset( $_COOKIE['selected_language'] )) {
+			
+			if ($_COOKIE['selected_language'] == 'Farsi'){
+				$js_array[] = "<script src=\"engine/classes/min/index.php?charset={$config['charset']}&amp;g=dlefa&amp;v=25\"></script>";
+			}else{	
+				$js_array[] = "<script src=\"engine/classes/min/index.php?charset={$config['charset']}&amp;g=admin&amp;v=25\"></script>";
+			}
+			
+			
+		}else{
+			
+			if ($config['langs'] == 'Farsi'){
+				$js_array[] = "<script src=\"engine/classes/min/index.php?charset={$config['charset']}&amp;g=dlefa&amp;v=25\"></script>";
+			}else{	
+				$js_array[] = "<script src=\"engine/classes/min/index.php?charset={$config['charset']}&amp;g=admin&amp;v=25\"></script>";
+			}
+			
+		}]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/inc/addnews.php">
+		<operation action="replace">
+			<searchcode><![CDATA[if(!$alt_name) $alt_name = totranslit( stripslashes( $title ), true, false );
+else $alt_name = totranslit( stripslashes( $alt_name ), true, false );]]></searchcode>
+			<replacecode><![CDATA[if(!$alt_name) $alt_name = fatotranslit( stripslashes( preg_replace("/[^\x{0600}-\x{06FF}a-zA-Z0-9_.;»«-]/u", "-", $title)), true, false);
+else $alt_name = fatotranslit( preg_replace("/[^\x{0600}-\x{06FF}a-zA-Z0-9_.;»«-]/u", "-", $alt_name), true, false );]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[strtotime]]></searchcode>
+			<replacecode><![CDATA[jstrtotime]]></replacecode>
+			<searchcount>2</searchcount>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[$full_link = $config['http_home_url'] . date( 'Y/m/d/', strtotime( $row['date'] ) ) . $row['alt_name'] . ".html";]]></searchcode>
+			<replacecode><![CDATA[$full_link = $config['http_home_url'] . jdate( 'Y/m/d/', strtotime( $row['date'] ) ) . $row['alt_name'] . ".html";]]></replacecode>
+		</operation>
+		<operation action="after">
+			<searchcode><![CDATA[$title = $parse->process(  trim( strip_tags ($_POST['title']) ) );]]></searchcode>
+			<replacecode><![CDATA[$title = ArabicToPersian( $title );]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[if( trim($value) ) $tags_array[] = trim( $value );]]></searchcode>
+			<replacecode><![CDATA[if( trim($value) ) $tags_array[] = ArabicToPersian( trim( $value ) );]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/inc/banners.php">
+		<operation action="replace">
+			<searchcode><![CDATA[@strtotime]]></searchcode>
+			<replacecode><![CDATA[@jstrtotime]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[d.m.Y H:i]]></searchcode>
+			<replacecode><![CDATA[Y/m/d H:i]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[.date( $langformatdatefull,]]></searchcode>
+			<replacecode><![CDATA[.jdate( $langformatdatefull,]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[pull-right]]></searchcode>
+			<replacecode><![CDATA[pull-left]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[class="form-control width-350 position-left" maxlength="40" type="text" name="banner_tag"]]></searchcode>
+			<replacecode><![CDATA[class="form-control width-350 position-left ltr" maxlength="40" type="text" name="banner_tag"]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[0, ',', ' ']]></searchcode>
+			<replacecode><![CDATA[0, '', '']]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/inc/blockip.php">
+		<operation action="replace">
+			<searchcode><![CDATA[strtotime]]></searchcode>
+			<replacecode><![CDATA[jstrtotime]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[$editendban = date( "Y-m-d H:i:s", $row['date'] );]]></searchcode>
+			<replacecode><![CDATA[$editendban = jdate( "Y-m-d H:i:s", $row['date'] );]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/inc/categories.php">
+		<operation action="replace">
+			<searchcode><![CDATA[<b>ID:{$cat_info[$id]['id']}</b>]]></searchcode>
+			<replacecode><![CDATA[<b>شناسه:{$cat_info[$id]['id']}</b>]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[data-placement="right"]]></searchcode>
+			<replacecode><![CDATA[data-placement="left"]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[style="max-width:300px;"]]></searchcode>
+			<replacecode><![CDATA[style="max-width:390px;"]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[$alt_cat_name = totranslit]]></searchcode>
+			<replacecode><![CDATA[$alt_cat_name = fatotranslit]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[pull-right]]></searchcode>
+			<replacecode><![CDATA[pull-left]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[name="alt_cat_name" type="text" class="form-control"]]></searchcode>
+			<replacecode><![CDATA[name="alt_cat_name" type="text" class="form-control ltr"]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[name="cat_icon" type="text" class="form-control"]]></searchcode>
+			<replacecode><![CDATA[name="cat_icon" type="text" class="form-control ltr"]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/inc/cmoderation.php">
+		<operation action="replace">
+			<searchcode><![CDATA[$full_link = $config['http_home_url'] . date( 'Y/m/d/',]]></searchcode>
+			<replacecode><![CDATA[$full_link = $config['http_home_url'] . jdate( 'Y/m/d/',]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[$date = date( $langformatdatefull, $row['date'] );]]></searchcode>
+			<replacecode><![CDATA[$date = jdate( $langformatdatefull, $row['date'] );]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/inc/comments.php">
+		<operation action="replace">
+			<searchcode><![CDATA[$full_link = $config['http_home_url'] . date( 'Y/m/d/', $row['newsdate'] ) . $row['alt_name'] . ".html";]]></searchcode>
+			<replacecode><![CDATA[$full_link = $config['http_home_url'] . jdate( 'Y/m/d/', $row['newsdate'] ) . $row['alt_name'] . ".html";]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[		if( !$langformatdatefull ) $langformatdatefull = "d.m.Y H:i:s";
+		$date = date( $langformatdatefull, $row['date'] );]]></searchcode>
+			<replacecode><![CDATA[		if( !$langformatdatefull ) $langformatdatefull = "d M Y ساعت H:i";
+		$date = jdate( $langformatdatefull, $row['date'] );]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/inc/complaint.php">
+		<operation action="replace">
+			<searchcode><![CDATA[if ( $row['date'] ) $date = date( $langformatdatefull, $row['date'] )."<br /><br />"; else $date = "";]]></searchcode>
+			<replacecode><![CDATA[if ( $row['date'] ) $date = jdate( $langformatdatefull, $row['date'] )."<br /><br />"; else $date = "";]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[$full_link = $config['http_home_url'] . date( 'Y/m/d/', strtotime ($row['newsdate']) ) . $row['alt_name'] . ".html";]]></searchcode>
+			<replacecode><![CDATA[$full_link = $config['http_home_url'] . jdate( 'Y/m/d/', strtotime ($row['newsdate']) ) . $row['alt_name'] . ".html";]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/inc/dumper.php">
+		<operation action="replace">
+			<searchcode><![CDATA[ xml:lang="ru" lang="ru">]]></searchcode>
+			<replacecode><![CDATA[ xml:lang="fa" lang="fa">]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[		  $name = $db . '_' . date("Y-m-d_H-i"). '_' . substr( md5(date("Y-m-d_H-i").DBHOST . DBNAME), 0, 5);
+
+		} else {
+
+		   $name = date("Y-m-d_H-i") . '_' . $db . '_' . md5($rand);]]></searchcode>
+			<replacecode><![CDATA[		  $name = $db . '_' . jdate("Y-m-d_H-i"). '_' . substr( md5(date("Y-m-d_H-i").DBHOST . DBNAME), 0, 5);
+
+		} else {
+
+		   $name = jdate("Y-m-d_H-i") . '_' . $db . '_' . md5($rand);]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[body{
+	overflow: auto;
+}]]></searchcode>
+			<replacecode><![CDATA[body{
+	overflow: auto;
+    direction:rtl
+}]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[0, ',', ' ']]></searchcode>
+			<replacecode><![CDATA[0, '', '']]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/inc/editnews.php">
+		<operation action="replace">
+			<searchcode><![CDATA[	if( $fromnewsdate ) {
+
+		$where[] = "date >= '$fromnewsdate'";
+
+	}
+
+	if( $tonewsdate ) {
+
+		$where[] = "date <= '$tonewsdate'";
+
+	}]]></searchcode>
+			<replacecode><![CDATA[	if( $fromnewsdate != "" ) {
+
+		$fromnewsdate = jstrtotime($fromnewsdate);
+		$fromnewsdate = date("Y-m-d H:m:s", $fromnewsdate);
+		$where[] = "date >= '$fromnewsdate'";
+
+	}
+
+	if( $tonewsdate != "" ) {
+
+		$tonewsdate = jstrtotime($tonewsdate);
+		$tonewsdate = date("Y-m-d H:m:s", $tonewsdate);
+		$where[] = "date <= '$tonewsdate'";
+
+	}]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[			$itemdate = date( $langformatdate, strtotime( $row['date'] ) );
+		} else {
+			$itemdate = date( "d.m.Y", strtotime( $row['date'] ) );]]></searchcode>
+			<replacecode><![CDATA[			$itemdate = jdate( $langformatdate, strtotime( $row['date'] ) );
+		} else {
+			$itemdate = jdate( "Y/m/d", strtotime( $row['date'] ) );]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[$full_link = $config['http_home_url'] . date( 'Y/m/d/', strtotime( $row['date'] ) ) . $row['alt_name'] . ".html";]]></searchcode>
+			<replacecode><![CDATA[$full_link = $config['http_home_url'] . jdate( 'Y/m/d/', strtotime( $row['date'] ) ) . $row['alt_name'] . ".html";]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[$newstime = strtotime( $row['date'] );]]></searchcode>
+			<replacecode><![CDATA[$newstime = jstrtotime( $row['date'] );]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[if ( $expires['expires'] ) $expires['expires'] = date("Y-m-d", $expires['expires']);]]></searchcode>
+			<replacecode><![CDATA[if ( $expires['expires'] ) $expires['expires'] = jdate("Y-m-d", $expires['expires']);]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[ID=<b>{$row['id']}</b>]]></searchcode>
+			<replacecode><![CDATA[شماره:<b>{$row['id']}</b>]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[if(!$alt_name) $alt_name = totranslit( stripslashes( $title ), true, false );
+else $alt_name = totranslit( stripslashes( $alt_name ), true, false );]]></searchcode>
+			<replacecode><![CDATA[if(!$alt_name) $alt_name = fatotranslit( stripslashes( preg_replace("/[^\x{0600}-\x{06FF}a-zA-Z0-9_.;»«-]/u", "-", $title)), true, false);
+else $alt_name = fatotranslit( preg_replace("/[^\x{0600}-\x{06FF}a-zA-Z0-9_.;»«-]/u", "-", $alt_name), true, false );]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[if( (($expires = strtotime( $_POST['expires'] )) === - 1) OR !$expires) {]]></searchcode>
+			<replacecode><![CDATA[if( (($expires = jstrtotime( $_POST['expires'] )) === - 1) OR !$expires) {]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[$item_db[7] = strtotime( $row['date'] );]]></searchcode>
+			<replacecode><![CDATA[$item_db[7] = jstrtotime( $row['date'] );]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[} elseif( (($newsdate = strtotime( $newdate )) === - 1) OR !$newsdate ) {]]></searchcode>
+			<replacecode><![CDATA[} elseif( (($newsdate = jstrtotime( $newdate )) === - 1) OR !$newsdate ) {]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[0, ',', ' ']]></searchcode>
+			<replacecode><![CDATA[0, '', '']]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[			$row['editdate'] = date( $langformatdatefull, $row['editdate'] );
+		} else {
+			$row['editdate'] = date( "d.m.Y H:i:s", $row['editdate'] );
+		}
+		
+		$lang['news_edit_date'] = $lang['news_edit_date'] . " " . $row['editor'] . " - " . $row['editdate'];]]></searchcode>
+			<replacecode><![CDATA[			$row['editdate'] = jdate( $langformatdatefull, $row['editdate'] );
+		} else {
+			$row['editdate'] = jdate( "d M Y ساعت H:i:s", $row['editdate'] );
+		}
+		
+		$lang['news_edit_date'] = $lang['news_edit_date'] . " " . $row['editor'] . " در " . $row['editdate'];]]></replacecode>
+		</operation>
+		<operation action="after">
+			<searchcode><![CDATA[if ($row['autor'] != $member_id['name'] AND $user_group[$member_id['user_group']]['allow_all_edit'] AND !$row['approve']) $spam_btn = "<button  onclick=\"MarkSpam('{$id}', '{$dle_login_hash}'); return false;\" class=\"btn bg-brown-600 btn-sm btn-raised position-left\"><i class=\"fa fa-minus-square-o position-left\"></i> {$lang['btn_spam']}</button>"; else $spam_btn = "";]]></searchcode>
+			<replacecode><![CDATA[$news_date = jdate( "Y-m-d H:i:s", strtotime( $row['date'] ) );]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[<input type="text" name="newdate" data-rel="calendar" class="form-control position-left" style="width:190px;" value="{$row['date']}" autocomplete="off"><label class="checkbox-inline"><input class="icheck" type="checkbox" name="allow_now" id="allow_now" value="yes">{$lang['edit_jdate']}</label>]]></searchcode>
+			<replacecode><![CDATA[<input type="text" name="newdate" data-rel="calendar" class="form-control position-left" style="width:190px;" value="{$news_date}" autocomplete="off"><label class="checkbox-inline"><input class="icheck" type="checkbox" name="allow_now" id="allow_now" value="yes">{$lang['edit_jdate']}</label>]]></replacecode>
+		</operation>
+		<operation action="after">
+			<searchcode><![CDATA[$title = $parse->process( trim( strip_tags ($_POST['title']) ) );]]></searchcode>
+			<replacecode><![CDATA[$title = ArabicToPersian( $title );]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[if( trim($value) ) $tags_array[] = trim( $value );]]></searchcode>
+			<replacecode><![CDATA[if( trim($value) ) $tags_array[] = ArabicToPersian( trim( $value ) );]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/inc/editusers.php">
+		<operation action="replace">
+			<searchcode><![CDATA[	if( ! empty( $fromregdate ) ) {
+		$where[] = "reg_date>='" . strtotime( $fromregdate ) . "'";
+	}
+	if( ! empty( $toregdate ) ) {
+		$where[] = "reg_date<='" . strtotime( $toregdate ) . "'";
+	}
+	if( ! empty( $fromentdate ) ) {
+		$where[] = "lastdate>='" . strtotime( $fromentdate ) . "'";
+	}
+	if( ! empty( $toentdate ) ) {
+		$where[] = "lastdate<='" . strtotime( $toentdate ) . "'";
+	}]]></searchcode>
+			<replacecode><![CDATA[	if( ! empty( $fromregdate ) ) {
+		$where[] = "reg_date>='" . jstrtotime( $fromregdate ) . "'";
+	}
+	if( ! empty( $toregdate ) ) {
+		$where[] = "reg_date<='" . jstrtotime( $toregdate ) . "'";
+	}
+	if( ! empty( $fromentdate ) ) {
+		$where[] = "lastdate>='" . jstrtotime( $fromentdate ) . "'";
+	}
+	if( ! empty( $toentdate ) ) {
+		$where[] = "lastdate<='" . jstrtotime( $toentdate ) . "'";
+	}]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[if( $row['time_limit'] != "" ) $row['time_limit'] = date( $langformatdatefull, $row['time_limit'] );]]></searchcode>
+			<replacecode><![CDATA[if( $row['time_limit'] != "" ) $row['time_limit'] = jdate( $langformatdatefull, $row['time_limit'] );]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[<link rel="stylesheet" type="text/css" media="all" href="engine/classes/calendar/calendar.css" />
+<script src="engine/classes/js/jquery.js"></script>
+<script src="engine/classes/calendar/calendar.js"></script>]]></searchcode>
+			<replacecode><![CDATA[<script src="engine/classes/js/jquery.js"></script>]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[$time_limit = trim( $_POST['time_limit'] ) ? strtotime( $_POST['time_limit'] ) : "";]]></searchcode>
+			<replacecode><![CDATA[$time_limit = trim( $_POST['time_limit'] ) ? jstrtotime( $_POST['time_limit'] ) : "";]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[class="form-control" type="text" name="search_mail" id="search_mail"]]></searchcode>
+			<replacecode><![CDATA[class="form-control ltr" type="text" name="search_mail" id="search_mail"]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[name="regemail" type="text" class="form-control"]]></searchcode>
+			<replacecode><![CDATA[name="regemail" type="text" class="form-control ltr"]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[class="form-control width-200 position-left" maxlength="50" type="text" name="editmail"]]></searchcode>
+			<replacecode><![CDATA[class="form-control width-200 position-left ltr" maxlength="50" type="text" name="editmail"]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[class="form-control width-300" maxlength="50" type="text" name="gravatar"]]></searchcode>
+			<replacecode><![CDATA[class="form-control width-300 ltr" maxlength="50" type="text" name="gravatar"]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[0, ',', ' ']]></searchcode>
+			<replacecode><![CDATA[0, '', '']]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/inc/editvote.php">
+		<operation action="replace">
+			<searchcode><![CDATA[@strtotime]]></searchcode>
+			<replacecode><![CDATA[@jstrtotime]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[date( $langformatdate]]></searchcode>
+			<replacecode><![CDATA[jdate( $langformatdate]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/inc/googlemap.php">
+		<operation action="replace">
+			<searchcode><![CDATA[$file_date = date($langformatdatefull, filectime(ROOT_DIR. "/uploads/sitemap.xml") );]]></searchcode>
+			<replacecode><![CDATA[$file_date = jdate($langformatdatefull, filectime(ROOT_DIR. "/uploads/sitemap.xml") );]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/inc/logs.php">
+		<operation action="replace">
+			<searchcode><![CDATA[$row['date'] = date( $langformatdatefull, $row['date'] );]]></searchcode>
+			<replacecode><![CDATA[$row['date'] = jdate( $langformatdatefull, $row['date'] );]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/inc/newsletter.php">
+		<operation action="replace">
+			<searchcode><![CDATA[strtotime]]></searchcode>
+			<replacecode><![CDATA[jstrtotime]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/inc/upgrade.php">
+		<operation action="replace">
+			<searchcode><![CDATA[	if( strlen(trim((string)$_REQUEST['dle_key'])) != 29 ){
+		echo "{\"error\": \"{$lang['upgr_f_error_5']}\"}";
+		die();
+	}
+	
+	$params = array(
+		'action' => 'info',
+		'domain' => $_SERVER['HTTP_HOST'],
+		'key' => (string)$_REQUEST['dle_key'],
+		'site_key' => get_domen_hash()
+	);
+
+	$data = http_get_contents("http://dle-news.ru/extras/upgrade/index.php?".http_build_query($params, '', '&') );
+]]></searchcode>
+			<replacecode><![CDATA[	$currect_version = VERSIONID;
+	$currect_build = BUILDID;
+	
+	if( $_REQUEST['dle_key'] != $config['http_home_url'] ){
+		echo "{\"error\": \"نام دامنه وارد شده در فرم با آدرس سایت شما همخوانی ندارد. لطفا پس از تصحیح دوباره تست نمایید.\"}";
+		die();
+	}
+
+	$data = @file_get_contents('https://dlefa.ir/upgrade/update.json?version_id='.$currect_version.'&build='.$currect_build.'&site='.$_REQUEST['dle_key']);]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[			if( $data['error']) {
+				
+				if( $data['error'] == "-3" ) $data['error'] = $lang['upgr_f_error_2'];
+				if( $data['error'] == "-2" ) $data['error'] = $lang['upgr_f_error_3'];
+				if( $data['error'] == "-1" ) $data['error'] = $lang['upgr_f_error_4'];
+				
+				echo "{\"error\": \"{$data['error']}\"}";
+				die();
+			}
+			
+			if( $data['distr']['version'] ) {
+				if( version_compare(VERSIONID, $data['distr']['version'], '>=') AND version_compare(BUILDID, $data['distr']['build'], '>=') AND !defined('DEMOVERSION') ) {
+					echo "{\"error\": \"{$lang['upgr_f_error_6']}\"}";
+					die();
+				} else {
+					$_SESSION['distr'] = $data['distr'];
+					echo "{\"status\": \"ok\"}";
+					die();	
+				}
+			}]]></searchcode>
+			<replacecode><![CDATA[			if( $data['error']) {
+	
+				echo "{\"error\": \"{$data['error']}\"}";
+				die();
+			}
+			
+			if( $data['messages'] ) {
+				foreach( $data['messages'] as $data['distr'] ){
+
+					if( version_compare(VERSIONID, $data['distr']['version'], '>=') AND version_compare(BUILDID, $data['distr']['build'], '>=') AND !defined('DEMOVERSION') ) {
+						echo "{\"error\": \"{$lang['upgr_f_error_6']}\"}";
+						die();
+					} else {
+						$_SESSION['distr'] = $data['distr'];
+						echo "{\"status\": \"ok\"}";
+						die();	
+					}
+				}
+			}]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[{$lang['upgr_act_info']}<br /><br /><input type="text" name="sitekey" id="sitekey" placeholder="{$lang['trial_key']}" class="classic width-400 mr-10"><button onclick="dle_activation( 'key' ); return false;" class="btn bg-teal btn-raised btn-sm">{$lang['upgr_next']}</button><br /><br /><div id="result_info">{$lang['key_format']} <b>XXXXX-XXXXX-XXXXX-XXXXX-XXXXX</b></div>]]></searchcode>
+			<replacecode><![CDATA[{$lang['upgr_act_info']}<br /><br /><input type="text" name="sitekey" id="sitekey" placeholder="{$lang['trial_key']}" value="{$config['http_home_url']}" class="classic width-400 ml-10 ltr"><button onclick="dle_activation( 'key' ); return false;" class="btn bg-teal btn-raised btn-sm">{$lang['upgr_next']}</button><br /><br /><div id="result_info"></div>]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[document.getElementById( 'result_info' ).innerHTML = '{$lang['key_format']} <b>XXXXX-XXXXX-XXXXX-XXXXX-XXXXX</b>';]]></searchcode>
+			<replacecode><![CDATA[document.getElementById( 'result_info' ).innerHTML = '';]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/inc/rss.php">
+		<operation action="replace">
+			<searchcode><![CDATA[totranslit]]></searchcode>
+			<replacecode><![CDATA[fatotranslit]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[strtotime]]></searchcode>
+			<replacecode><![CDATA[jstrtotime]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/inc/static.php">
+		<operation action="replace">
+			<searchcode><![CDATA[strtotime]]></searchcode>
+			<replacecode><![CDATA[jstrtotime]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[@date]]></searchcode>
+			<replacecode><![CDATA[@jdate]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[d.m.Y]]></searchcode>
+			<replacecode><![CDATA[d M Y]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[$row['views'] = number_format( $row['views'], 0, ',', ' ');]]></searchcode>
+			<replacecode><![CDATA[$row['views'] = number_format( $row['views'], 0, '', '');]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[$name = trim( totranslit( $_POST['name'], true, false ) );]]></searchcode>
+			<replacecode><![CDATA[$name = trim( fatotranslit( $_POST['name'], true, false ) );]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[name="name" class="form-control width-550" maxlength="100">]]></searchcode>
+			<replacecode><![CDATA[name="name" class="form-control width-550 ltr" maxlength="100">]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[<input type="text" name="static_tpl" class="form-control position-left" style="width:220px;">.tpl]]></searchcode>
+			<replacecode><![CDATA[tpl.<input type="text" name="static_tpl" class="form-control position-left" style="width:220px;">]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/inc/templates.php">
+		<operation action="replace">
+			<searchcode><![CDATA[	  <div class="col-md-2">
+		<div id="filetree" class="filetree"></div>
+	  </div>
+	  
+	  <div class="col-md-10">
+			<div id="fileedit" style="border: solid 1px #BBB;min-height: 565px; padding:5px;"></div>
+	  </div>]]></searchcode>
+			<replacecode><![CDATA[	  <div class="col-md-10">
+			<div id="fileedit" style="border: solid 1px #BBB;min-height: 565px; padding:5px;"></div>
+	  </div>
+
+      <div class="col-md-2">
+		<div id="filetree" class="filetree"></div>
+	  </div>]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[<div class="col-md-12 mb-10">{$lang['templates_help']} <a class="main" href="http://dle-news.ru/extras/online/all2.html" target="_blank">http://dle-news.ru/extras/online/all2.html</a></div>]]></searchcode>
+			<replacecode><![CDATA[<div class="col-md-12 mb-10">{$lang['templates_help']} <a class="main" href="https://learn.dlefa.ir/" target="_blank">آموزش تگ های سیستم</a></div>]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/inc/main.php">
+		<operation action="replace">
+			<searchcode><![CDATA[$.get("engine/ajax/controller.php?mod=updates&versionid={$currect_version}&user_hash={$dle_login_hash}&build={$currect_build}", function( data ){]]></searchcode>
+			<replacecode><![CDATA[$.get("engine/ajax/controller.php?mod=updates_fa&versionid={$currect_version}&user_hash={$dle_login_hash}&build={$currect_build}", function( data ){]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[0, ',', ' ']]></searchcode>
+			<replacecode><![CDATA[0, '', '']]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/inc/xfields.php">
+		<operation action="replace">
+			<searchcode><![CDATA[float:right]]></searchcode>
+			<replacecode><![CDATA[float:left]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/inc/options.php">
+		<operation action="replace">
+			<searchcode><![CDATA[class=\"form-control\" name=\"save_con[http_home_url]\"]]></searchcode>
+			<replacecode><![CDATA[class=\"form-control ltr\" name=\"save_con[http_home_url]\"]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[class=\"form-control\" name=\"save_con[recaptcha_public_key]\"]]></searchcode>
+			<replacecode><![CDATA[class=\"form-control ltr\" name=\"save_con[recaptcha_public_key]\"]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[.date]]></searchcode>
+			<replacecode><![CDATA[.jdate]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/inc/lostpassword.php">
+		<operation action="replace">
+			<searchcode><![CDATA[<div class="text-muted text-size-small text-center">DataLife Engine&reg;  Copyright 2004-{$year}<br>&copy; <a href="https://dle-news.ru/" target="_blank">SoftNews Media Group</a> All rights reserved.</div>]]></searchcode>
+			<replacecode><![CDATA[<div class="text-muted text-size-small text-center ltr">DataLife Engine&reg;  Copyright {$year}<br>&copy; <a href="https://dlefa.ir/" target="_blank">dlefa</a> All rights reserved.</div>]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/inc/twofactor.php">
+		<operation action="replace">
+			<searchcode><![CDATA[<div class="text-muted text-size-small text-center">DataLife Engine&reg;  Copyright 2004-{$year}<br>&copy; <a href="https://dle-news.ru/" target="_blank">SoftNews Media Group</a> All rights reserved.</div>]]></searchcode>
+			<replacecode><![CDATA[<div class="text-muted text-size-small text-center ltr">DataLife Engine&reg;  Copyright {$year}<br>&copy; <a href="https://dlefa.ir/" target="_blank">dlefa</a> All rights reserved.</div>]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/inc/tagscloud.php">
+		<operation action="replace">
+			<searchcode><![CDATA[0, ',', ' ']]></searchcode>
+			<replacecode><![CDATA[0, '', '']]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/inc/usergroup.php">
+		<operation action="replace">
+			<searchcode><![CDATA[0, ',', ' ']]></searchcode>
+			<replacecode><![CDATA[0, '', '']]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/inc/plugins.php">
+		<operation action="replace">
+			<searchcode><![CDATA[form-control width-500 position-right]]></searchcode>
+			<replacecode><![CDATA[form-control width-500 position-right ltr]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[pull-right]]></searchcode>
+			<replacecode><![CDATA[pull-left]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[data-placement="right"]]></searchcode>
+			<replacecode><![CDATA[data-placement="left"]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/modules/addcomments.php">
+		<operation action="replace">
+			<searchcode><![CDATA[$full_link = $config['http_home_url'] . date( 'Y/m/d/', $row['date'] ) . $row['alt_name'] . ".html";]]></searchcode>
+			<replacecode><![CDATA[$full_link = $config['http_home_url'] . jdate( 'Y/m/d/', $row['date'] ) . $row['alt_name'] . ".html";]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/modules/addnews.php">
+		<operation action="replace">
+			<searchcode><![CDATA[if( $alt_name == "" OR !$alt_name ) $alt_name = totranslit( stripslashes( $title ), true, false );
+else $alt_name = totranslit( $alt_name, true, false );]]></searchcode>
+			<replacecode><![CDATA[if( $alt_name == "" OR !$alt_name ) $alt_name = fatotranslit( stripslashes( preg_replace("/[^\x{0600}-\x{06FF}a-zA-Z0-9_.;»«-]/u", "-", $title)), true, false);
+else $alt_name = fatotranslit( preg_replace("/[^\x{0600}-\x{06FF}a-zA-Z0-9_.;»«-]/u", "-", $alt_name), true, false );]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/modules/functions.php">
+		<operation action="before">
+			<searchcode><![CDATA[if ( $config['auth_domain'] ) {]]></searchcode>
+			<replacecode><![CDATA[require_once (DLEPlugins::Check(ROOT_DIR . '/engine/classes/jdate.class.php'));]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[	if (!in_array($localzone, $timezones)) $localzone = 'Europe/Moscow';
+
+	$local->setTimeZone(new DateTimeZone($localzone));
+
+	return strtr( $local->format($format), $locallangdate );]]></searchcode>
+			<replacecode><![CDATA[	if (!in_array($localzone, $timezones)) $localzone = 'Asia/Tehran';
+
+	$local->setTimeZone(new DateTimeZone($localzone));
+
+	return strtr( @jdate( $format, $stamp ), $langdate );]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[0, ',', ' ']]></searchcode>
+			<replacecode><![CDATA[0, '', '']]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/modules/pm.php">
+		<operation action="replace">
+			<searchcode><![CDATA[j.m.Y]]></searchcode>
+			<replacecode><![CDATA[j F Y]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[0, ',', ' ']]></searchcode>
+			<replacecode><![CDATA[0, '', '']]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/modules/show.custom.php">
+		<operation action="replace">
+			<searchcode><![CDATA[$config['http_home_url'] . date( 'Y/m/d/',]]></searchcode>
+			<replacecode><![CDATA[$config['http_home_url'] . jdate( 'Y/m/d/',]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[0, ',', ' ']]></searchcode>
+			<replacecode><![CDATA[0, '', '']]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/modules/show.full.php">
+		<operation action="replace">
+			<searchcode><![CDATA[$config['http_home_url'] . date( 'Y/m/d/',]]></searchcode>
+			<replacecode><![CDATA[$config['http_home_url'] . jdate( 'Y/m/d/',]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[0, ',', ' ']]></searchcode>
+			<replacecode><![CDATA[0, '', '']]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/modules/show.short.php">
+		<operation action="replace">
+			<searchcode><![CDATA[$config['http_home_url'] . date( 'Y/m/d/',]]></searchcode>
+			<replacecode><![CDATA[$config['http_home_url'] . jdate( 'Y/m/d/',]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[0, ',', ' ']]></searchcode>
+			<replacecode><![CDATA[0, '', '']]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/modules/main.php">
+		<operation action="replace">
+			<searchcode><![CDATA[echo "\n<!-- DataLife Engine Copyright SoftNews Media Group (http://dle-news.ru) -->\r\n";]]></searchcode>
+			<replacecode><![CDATA[echo "\n<!-- DataLife Engine Copyright (https://dlefa.ir) -->\r\n";]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/modules/topnews.php">
+		<operation action="replace">
+			<searchcode><![CDATA[$full_link = $config['http_home_url'] . date( 'Y/m/d/', $row['date'] ) . $row['alt_name'] . ".html";]]></searchcode>
+			<replacecode><![CDATA[$full_link = $config['http_home_url'] . jdate( 'Y/m/d/', $row['date'] ) . $row['alt_name'] . ".html";]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/modules/profile.php">
+		<operation action="replace">
+			<searchcode><![CDATA[0, ',', ' ']]></searchcode>
+			<replacecode><![CDATA[0, '', '']]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/modules/static.php">
+		<operation action="replace">
+			<searchcode><![CDATA[0, ',', ' ']]></searchcode>
+			<replacecode><![CDATA[0, '', '']]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/skins/default.skin.php">
+		<operation action="replace">
+			<searchcode><![CDATA[pull-right]]></searchcode>
+			<replacecode><![CDATA[pull-left]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[<div class="navbar-right">]]></searchcode>
+			<replacecode><![CDATA[<div class="navbar-left">]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[<div class="dropdown-menu dropdown-content"]]></searchcode>
+			<replacecode><![CDATA[<div class="dropdown-menu dropdown-menu-pm dropdown-content"]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[<a class="navbar-brand" href="?mod=main">DataLife Engine</a>]]></searchcode>
+			<replacecode><![CDATA[<a class="navbar-brand" href="?mod=main">همیار دیتالایف انجین</a>]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[					<div class="footer text-muted text-size-small">
+						DataLife Engine&reg;  Copyright 2004-{$year} &copy; <a href="https://dle-news.ru/" target="_blank">SoftNews Media Group</a> All rights reserved.
+					</div>]]></searchcode>
+			<replacecode><![CDATA[					<div class="footer text-muted text-size-small ltr">
+						DataLife Engine&reg;  Copyright {$year} &copy; <a href="https://dlefa.ir/" target="_blank">dlefa</a> All rights reserved.
+					</div>]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[<div class="text-muted text-size-small text-center">DataLife Engine&reg;  Copyright 2004-{$year}<br>&copy; <a href="https://dle-news.ru/" target="_blank">SoftNews Media Group</a> All rights reserved.</div>]]></searchcode>
+			<replacecode><![CDATA[<div class="text-muted text-size-small text-center ltr">DataLife Engine&reg;  Copyright {$year}<br>&copy; <a href="https://dlefa.ir/" target="_blank">dlefa</a> All rights reserved.</div>]]></replacecode>
+		</operation>
+	</file>
+</dleplugin>
