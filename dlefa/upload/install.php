@@ -3,7 +3,9 @@
 =====================================================
  DataLife Engine v13.1
 -----------------------------------------------------
- Translate :
+ Persian support site: https://dlefa.ir
+-----------------------------------------------------
+ Translate & Develope :
 	Seyed Ehsan Setarehdan   - Eh3an@Setarehdan.ir
 -----------------------------------------------------
  FileName :  install.php
@@ -181,10 +183,11 @@ document.getElementById( 'check-eula' ).onsubmit = check_eula;
 		سلام و عرض احترام<br><br>
 		بعد از نصب سیستم حتما فایل <span style="color:red">install.php</span> را از روی سیستم خود حذف نمایید.<br><br>
 		این نسخه ورژن 13.1 سیستم مدیریت محتوای دیتالایف انجین می باشد.<br><br>
-		برای دریافت اطلاعات بیشتر به سایت دیتالایف انجین به آدرس <a href="https://dle-news.com" target="_blank">dle-news.com</a> مراجعه نمایید.<br><br>
+		برای دریافت اطلاعات بیشتر به سایت پشتیبانی همیار دیتالایف انجین فارسی به آدرس <a href="https://dlefa.ir" target="_blank">dlefa.ir</a> مراجعه نمایید.<br><br>
+		آدرس کانال تلگرام <a href="https://t.me/dlefair" target="_blank">https://t.me/dlefair</a> و اینستاگرام به آدرس <a href="https://www.instagram.com/dlefa.ir/" target="_blank">https://instagram.com/dlefa.ir</a> در خدمت شما هستیم.<br><br>
 		در همه حال آماده ی دریافت پیشنهادات و انتقادات شما کاربران گرامی هستیم.<br><br>
 		با تقدیم احترام<br><br>
-		تیم مدیریتی دیتالایف انجین<br><br>
+		تیم مدیریتی همیار دیتالایف انجین فارسی<br><br>
 		</div>
 		<div class="checkbox"><label><input type="checkbox" name="eula" id="eula" class="icheck">موارد بالا را مطالعه کرده و می پذیرم!</label></div>
 	</div>
@@ -416,14 +419,14 @@ echo '<tr>
 <tr><td style="padding: 5px;">نام دیتابیس:</td><td style="padding: 5px;"><input type="text" class="form-control ltr width-400" name="dbname"></tr>
 <tr><td style="padding: 5px;">نام کاربری دیتابیس:</td><td style="padding: 5px;"><input type="text" class="form-control ltr width-400" name="dbuser"></tr>
 <tr><td style="padding: 5px;">کلمه عبور دیتابیس:</td><td style="padding: 5px;"><input type="text" class="form-control ltr width-400" name="dbpasswd"></tr>
-<tr><td style="padding: 5px;">پیشوند جداول:</td><td style="padding: 5px;"><input type="text" class="form-control ltr width-400" name="dbprefix" value="dle"> <span class="text-size-small text-muted">[Prefix]</span></tr>
+<tr><td style="padding: 5px;">پیشوند جداول:</td><td style="padding: 5px;"><input type="text" class="form-control ltr width-400" name="dbprefix" value="dlefa"> <span class="text-size-small text-muted">[Prefix]</span></tr>
 <tr><td colspan="2" style="padding: 5px;"><b>اطلاعات مربوط به مدیریت سایت</b><td></tr>
 <tr><td style="padding: 5px;">نام کاربری مدیر سایت:</td><td style="padding: 5px;"><input type="text" class="form-control ltr width-400" name="reg_username" ></tr>
 <tr><td style="padding: 5px;">کلمه عبور:</td><td style="padding: 5px;"><input type="password" class="form-control ltr width-400" name="reg_password1"></tr>
 <tr><td style="padding: 5px;">تکرار کلمه عبور:</td><td style="padding: 5px;"><input type="password" class="form-control ltr width-400" name="reg_password2"></tr>
 <tr><td style="padding: 5px;">ایمیل:</td><td style="padding: 5px;"><input type="text" class="form-control ltr width-400" name="reg_email"></tr>
 <tr><td colspan="2" style="padding: 5px;"><b>تنظیمات سیستم</b><td></tr>
-<tr><td style="padding: 5px;">عنوان سایت:<td style="padding: 5px;"><input type="text" class="form-control width-400" name="site_title" value="دیتالایف انجین فارسی" ></tr>';
+<tr><td style="padding: 5px;">عنوان سایت:<td style="padding: 5px;"><input type="text" class="form-control width-400" name="site_title" value="همیار دیتالایف انجین فارسی" ></tr>';
 
 echo <<<HTML
 </table>
@@ -1929,7 +1932,7 @@ $tableSchema[] = "CREATE TABLE " . PREFIX . "_plugins_logs (
   KEY `plugin_id` (`plugin_id`)
 ) ENGINE=" . $storage_engine . " DEFAULT CHARACTER SET " . COLLATE . " COLLATE " . COLLATE . "_general_ci";
 
-$tableSchema[] = "INSERT INTO " . PREFIX . "_rssinform VALUES (1, 'dle', 'آخرین مطالب سایت دیتالایف انجین', '0', 'https://dle-news.com/rss.xml', 'informer', 3, 0, 200, 1, 'j F Y H:i')";
+$tableSchema[] = "INSERT INTO " . PREFIX . "_rssinform VALUES (1, 'dle', 'آخرین مطالب سایت همیار دیتالایف فارسی', '0', 'https://dlefa.ir/rss.xml', 'informer', 3, 0, 200, 1, 'j F Y H:i')";
 
 $tableSchema[] = "INSERT INTO " . PREFIX . "_usergroups VALUES (1, 'مدیر کل', 'all', 1, 'all', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 50, 101, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, '{THEME}/images/icon_1.gif', 0, 1, 1, 1, 1, 1, 1, 0, 1,500,1000,1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,'<b><span style=\"color:red\">','</span></b>',1,1,'all', 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 'zip,rar,exe,doc,pdf,swf', 4096, 0, 2, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, '', 1, 1, 1, 3, '800x600', 300, '200x150', 1, 3, 1000, 'jpg,png,zip,pdf',1,1)";
 $tableSchema[] = "INSERT INTO " . PREFIX . "_usergroups VALUES (2, 'مدیر', 'all', 1, 'all', 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 50, 101, 1, 1, 1, 0, 2, 1, 1, 1, 1, 1, 0, '{THEME}/images/icon_2.gif', 0, 1, 0, 1, 1, 1, 1, 0, 1,500,1000,1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,1,'','',1,1,'all', 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 'zip,rar,exe,doc,pdf,swf', 4096, 0, 2, 1, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, '', 1, 1, 1, 3, '800x600', 300, '200x150', 1, 3, 1000, 'jpg,png,zip,pdf',1,1)";
@@ -1938,7 +1941,7 @@ $tableSchema[] = "INSERT INTO " . PREFIX . "_usergroups VALUES (4, 'عضو سا�
 $tableSchema[] = "INSERT INTO " . PREFIX . "_usergroups VALUES (5, 'مهمان', 'all', 0, 'all', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 5, 0, 1, 1, 1, 0, 1, '{THEME}/images/icon_5.gif', 0, 1, 0, 0, 0, 0, 1, 1, 0,1,1,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,'','',0,0,'all', 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, '', 0, 0, 2, 1, 0, 2, 0, 0, 5, 0, 0, 5, 0, 0, 5, 0, 0, 5, '', 0, 0, 0, 1, '', 0, '', 0, 3, 1000, 'jpg,png,zip,pdf',0,0)";
 
 
-$tableSchema[] = "INSERT INTO " . PREFIX . "_rss VALUES (1, 'https://dle-news.com/rss.xml', 'DataLife Engine Official Website', 1, 1, 1, 1, 1, '<div class=\"full-post-content row\">{get}</div><div class=\"full-post-footer ignore-select\">', 5, '', 1, 0)";
+$tableSchema[] = "INSERT INTO " . PREFIX . "_rss VALUES (1, 'https://dlefa.ir/rss.xml', 'DataLife Engine Official Website', 1, 1, 1, 1, 1, '<div class=\"full-post-content row\">{get}</div><div class=\"full-post-footer ignore-select\">', 5, '', 1, 0)";
 
 $tableSchema[] = "INSERT INTO " . PREFIX . "_email values (1, 'reg_mail', 'با سلام خدمت شما کاربر گرامی {%username%},\r\n\r\nاز اینکه در وب سایت $url ثبت نام کرده اید، متشکریم؛ \r\n\r\n مشخصات شما در این وب سایت به شرح زیر می‌باشد:\r\n\r\nنام کاربری: {%username%}\r\nرمز عبور: {%password%}\r\n\r\n\r\nاکنون جهت تکمیل و اتمام مراحل ثبت نام در سایت، بر روی لینک زیر کلیک نمائید:\r\n\r\n{%validationlink%}', 0)";
 $tableSchema[] = "INSERT INTO " . PREFIX . "_email values (2, 'feed_mail', 'با سلام خدمت شما کاربر گرامی {%username_to%},\r\n\r\nایمیلی از طرف نام کاربری {%username_from%} در سایت $url  برای شما ارسال شده است.\r\n\r\nمتن پیام به شرح زیر می‌باشد:\r\n\r\n{%text%}\r\n\r\nIP ارسال کننده: {%ip%}', 0)";
@@ -1953,7 +1956,7 @@ $tableSchema[] = "INSERT INTO " . PREFIX . "_email values (9, 'twofactor', 'با
 
 $tableSchema[] = "INSERT INTO " . PREFIX . "_category (name, alt_name, keywords) values ('خبرها', 'news', '')";
 
-$tableSchema[] = "INSERT INTO " . PREFIX . "_banners (banner_tag, descr, code, approve, short_place, bstick, main, category) values ('header', 'Top banner', '<div align=\"center\"><a href=\"https://dle-news.com/\" target=\"_blank\"><img src=\"{$url}templates/Default/images/_banner_.gif\" style=\"border: none;\" alt=\"\" /></a></div>', 1, 0, 0, 0, 0)";
+$tableSchema[] = "INSERT INTO " . PREFIX . "_banners (banner_tag, descr, code, approve, short_place, bstick, main, category) values ('header', 'Top banner', '<div align=\"center\"><a href=\"https://dlefa.ir/\" target=\"_blank\"><img src=\"{$url}templates/Default/images/_banner_.gif\" style=\"border: none;\" alt=\"\" /></a></div>', 1, 0, 0, 0, 0)";
 
 $add_time = time();
 $thistime = date ("Y-m-d H:i:s", $add_time);
@@ -1965,14 +1968,16 @@ $tableSchema[] = "INSERT INTO " . PREFIX . "_vote (category, vote_num, date, tit
 $title = "دیتالایف انجین فارسی نسخه 13.1";
 
 
-$short_story = "به نام خدا<br><br>آخرین نسخه ی سیستم مدیریت محتوای دیتالایف انجین فارسی بدون دستکاری و اضافه نمودن ماژولی خاص پیشکش حضورتان.<br><br>با آغوش باز پذیرای انتقادات و پیشنهادات شما در ارتباط با هرگونه ایراد و یا اشکال سیستمی و یا بهتر سازی مدیریت محتوا هستیم. <br><br>برای دانلود قالب و امکانات اضافی دیگر به سایت <a href=\"https://dle-news.com\" rel=\"noopener noreferrer external\" target=\"_blank\">دیتالایف انجین</a> مراجعه فرمایید.<br><br><div align=\"center\"><img src=\"{$url}uploads/boxsmall.jpg\" width=\"350\" height=\"225\" class=\"fr-fic fr-dii\" alt=\"\"></div>با تقدیم احترام<br>تیم دیتالایف انجین";
+$short_story = "به نام خدا<br><br>آخرین نسخه ی سیستم مدیریت محتوای دیتالایف انجین فارسی بدون دستکاری و اضافه نمودن ماژولی خاص پیشکش حضورتان.<br><br>با آغوش باز پذیرای انتقادات و پیشنهادات شما در ارتباط با هرگونه ایراد و یا اشکال سیستمی و یا بهتر سازی مدیریت محتوا هستیم. ایمیل تماس : <a href=\"mailto:info@dlefa.ir\"  target=\"_blank\">info@dlefa.ir</a><br><br>برای دانلود قالب های فارسی و امکانات اضافی دیگر به سایت <a href=\"https://dlefa.ir\" rel=\"noopener noreferrer external\" target=\"_blank\">همیار دیتالایف انجین فارسی</a> مراجعه فرمایید.<br><br><div align=\"center\"><img src=\"{$url}uploads/dlefa13.1.png\" width=\"350\" height=\"225\" class=\"fr-fic fr-dii\" alt=\"\"></div>با تقدیم احترام<br>تیم همیار دیتالایف انجین فارسی";
 $full_story = "";
 
-$tableSchema[] = "INSERT INTO " . PREFIX . "_post (id, date, autor, short_story, full_story, xfields, title, keywords, category, alt_name, allow_comm, approve, allow_main, tags) values ('1', '$thistime', '$reg_username', '$short_story', '$full_story', '', '$title', '', '1', 'دیتالایف-انجین-فارسی-نسخه-13-1', '1', '1', '1', 'Datalife, Engine, CMS, نسخه دیتالایف انجین فارسی')";
+$tableSchema[] = "INSERT INTO " . PREFIX . "_post (id, date, autor, short_story, full_story, xfields, title, keywords, category, alt_name, allow_comm, approve, allow_main, tags) values ('1', '$thistime', '$reg_username', '$short_story', '$full_story', '', '$title', '', '1', 'دیتالایف-انجین-فارسی-نسخه-13-1', '1', '1', '1', 'Datalife, Engine, CMS, dlefa.ir, نسخه همیار دیتالایف انجین فارسی')";
 
 $tableSchema[] = "INSERT INTO " . PREFIX . "_post_extras (news_id, user_id) values ('1', '1')";
 
-$tableSchema[] = "INSERT INTO " . PREFIX . "_tags (news_id, tag) values ('1', 'DLE'), ('1', 'Datalife'), ('1', 'Engine'), ('1', 'CMS'), ('1', 'Farsi')";
+$tableSchema[] = "INSERT INTO " . PREFIX . "_tags (news_id, tag) values ('1', 'DLE'), ('1', 'Datalife'), ('1', 'Engine'), ('1', 'CMS'), ('1', 'Farsi'), ('1', 'dlefa.ir')";
+
+require_once(ROOT_DIR.'/dlefa.php');
 
       foreach($tableSchema as $table) {
 
@@ -1980,8 +1985,11 @@ $tableSchema[] = "INSERT INTO " . PREFIX . "_tags (news_id, tag) values ('1', 'D
 
       }
 
-  echo $skin_header;
+echo $skin_header;
 
+@unlink(ROOT_DIR.'/dlefa.php');
+@unlink(ENGINE_DIR . '/inc/upgrade/persian-datalife-engine.xml');
+@unlink(ENGINE_DIR . '/inc/upgrade/plugins.php');
 
 echo <<<HTML
 <div class="panel panel-default">
@@ -1989,9 +1997,8 @@ echo <<<HTML
     {$title}
   </div>
   <div class="panel-body">
-	سیستم مدیریت محتوای دیتالایف انجین با موفقیت بر روی سایت شما نصب گردید.<br/><br/>
-	اکنون وارد <B><a href="admin.php"><font color="#1176CC" size="2">پنل مدیریت</font></a></B> خود شده و پلاگین های شمسی ساز دیتالایف انجین فارسی را آپلود نمایید. این پلاگین ها را می توانید از آدرس <B><a href="admin.php"><font color="#1176CC" size="2">اینجا</font></a></B> دانلود نمایید.<br><br>
-	<font color="red"><strong>توجه:</strong> به یاد داشته باشید که فایل <b>install.php</b> را برای امنیت بیشتر سایت حذف کنید.</font>
+	سیستم مدیریت محتوای دیتالایف انجین با موفقیت بر روی سایت شما نصب گردید.<br/> برای دیدن صفحه اصلی سایت <B><a href="index.php"><font color="#1176CC" size="2">اینجا</font></a></B> کلیک کنید و یا اگر می خواهید کنترل پنل مدیریت سایت را ببینید <B><a href="admin.php"><font color="#1176CC" size="2">اینجا</font></a></B> کلیک کنید. 
+	<br><br><font color="red"><strong>توجه:</strong> به یاد داشته باشید که فایل <b>install.php</b> را برای امنیت بیشتر سایت حذف کنید.</font>
 	<br><br>
 	موفق باشید.<br>
   </div>
@@ -2001,12 +2008,19 @@ echo <<<HTML
 </div>
 HTML;
 
+@unlink(ROOT_DIR.'/install.php');
+
 }
 else {
 
 	if (@file_exists(ENGINE_DIR.'/data/config.php')) {
 
 		msgbox( "", "خطا در نصب سیستم", "به دلیل وجود فایل <b>engine/data/config.php/</b> شما نمی توانید دوباره این سیستم را نصب کنید. [مگر آنکه فایل مذکور را حذف کنید]" );
+
+		die ();
+	} elseif (@!file_exists(ROOT_DIR.'/dlefa.php')) {
+
+		msgbox( "", "خطا در نصب سیستم", "به دلیل وجود نداشتن فایل <b>dlefa.php</b> بر روی سرور شما، نمی توانید این سیستم را نصب کنید. [مگر آنکه فایل مذکور را از سایت <a href=\"https://dlefa.ir\" target=\"_blank\">همیار دیتالایف</a> دانلود و آپلود نمایید.]" );
 
 		die ();
 	}
@@ -2028,11 +2042,11 @@ echo <<<HTML
   </div>
 	<div class="panel-body">
 	سلام و عرض احترام خدمت شما کاربر گرامی!<br><br>
-	به صفحه نصب نسخه 13.1 سیستم مدیریت محتوای دیتالایف انجین خوش آمدید.<br><br>
+	به صفحه نصب نسخه 13.1 - build 102 سیستم مدیریت محتوای دیتالایف انجین خوش آمدید.<br><br>
 	به خاطر داشته باشید در صورتیکه حالت سئوی سیستم را غیرفعال می کنید، فایل <b>htaccess.</b> را از روی سرور حذف نموده و در مرحله پیکربندی سیستم قابلیت سئو را غیر فعال نمایید.<br><br>
 	<span class="text-danger">توجه: برای امنیت بیشتر سایت، ضروریست که بعد از نصب، فایل <B>install.php</b> را از سرور خود پاک کنید.</span><br><br>
 	امیدواریم از امکانات این نسخه از سیستم نهایت لذت رو ببرید.<br><br>
-	تیم مدیریتی دیتالایف انجین</a>
+	تیم مدیریتی همیار دیتالایف انجین فارسی - <a href="https://dlefa.ir" target="_blank">https://dlefa.ir</a>
 	</div>
 	<div class="panel-footer">
 	<button type="submit" class="btn bg-teal btn-sm btn-raised position-left"><i class="fa fa-arrow-circle-o-left position-left"></i>شروع نصب</button>
